@@ -5,6 +5,7 @@ import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Link } from 'react-router-dom';
 import { Paginator, PaginatorPageChangeEvent } from 'primereact/paginator';
+import { Toast } from 'primereact/toast';
 
 import AdvertisementCard from './AdvertismentCard';
 import AddItemDialog from './AddItemDialog';
@@ -22,11 +23,16 @@ const Advertisements = () => {
   const [first, setFirst] = React.useState<number>(0);
   const [rows, setRows] = React.useState<number>(START_ITEMS_PER_PAGE);
 
+  const toast = React.useRef<Toast>(null);
+
   React.useEffect(() => {
     axios
       .get('http://localhost:3000/advertisements')
       .then(({ data }) => { setAdvertisements(data); setFiltered(data); })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error);
+        toast.current?.show({ severity: 'error', summary: 'Ошибка загрузки объявлений...', detail: error.message });
+      });
   }, []);
 
   React.useEffect(() => {
@@ -68,17 +74,19 @@ const Advertisements = () => {
         <Button icon="pi pi-times" text rounded size="small" onClick={() => setFilter('')} />
       </div>
 
-      <Paginator
-        first={first}
-        rows={rows}
-        totalRecords={filtered.length} // Количество записей после фильтрации
-        rowsPerPageOptions={[10, 20, 30, 50, 100]}
-        onPageChange={onPageChange}
-        style={{ marginBottom: 10 }}
-      />
+      {displayed.length > 0 && (
+        <Paginator
+          first={first}
+          rows={rows}
+          totalRecords={filtered.length} // Количество записей после фильтрации
+          rowsPerPageOptions={[10, 20, 30, 50, 100]}
+          onPageChange={onPageChange}
+          style={{ marginBottom: 10 }}
+        />
+      )}
 
       <div className="advertisements-wrapper">
-        {!displayed.length && <div>Нет объявлений...</div>}
+        {!displayed.length && <div>Нет объявлений для отображения...</div>}
 
         {displayed.map((item: Advertisment) => (
           <Link to={`/advertisements/${item.id}`} key={item.id} className="adv-link">
@@ -101,6 +109,8 @@ const Advertisements = () => {
         setVisible={setVisible}
         setData={setAdvertisements}
       />
+
+      <Toast ref={toast} />
     </div>
   );
 };
