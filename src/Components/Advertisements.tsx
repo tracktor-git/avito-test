@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 
 import { Button } from 'primereact/button';
-import { InputText } from 'primereact/inputtext';
 import { Link } from 'react-router-dom';
 import { Paginator, PaginatorPageChangeEvent } from 'primereact/paginator';
 import { Toast } from 'primereact/toast';
@@ -11,6 +10,8 @@ import AdvertisementCard from './AdvertismentCard';
 import ItemDialog from './ItemDialog';
 
 import { Advertisment } from '../types';
+
+import AdvertisementsFilters from './AdvertisementsFilters';
 
 const START_ITEMS_PER_PAGE = 10;
 
@@ -26,7 +27,6 @@ const Advertisements = () => {
   const [filtered, setFiltered] = React.useState<Advertisment[]>([]);
   const [displayed, setDisplayed] = React.useState<Advertisment[]>([]);
   const [visible, setVisible] = React.useState<boolean>(false);
-  const [filter, setFilter] = React.useState('');
   const [first, setFirst] = React.useState<number>(0);
   const [rows, setRows] = React.useState<number>(START_ITEMS_PER_PAGE);
 
@@ -47,12 +47,6 @@ const Advertisements = () => {
   }, []);
 
   React.useEffect(() => {
-    const newData = advertisements.filter(({ name }) => name.toLowerCase().includes(filter));
-    setFiltered(newData);
-    setFirst(0);
-  }, [filter, advertisements]);
-
-  React.useEffect(() => {
     const startIndex = first;
     const endIndex = first + rows;
     setDisplayed(filtered.slice(startIndex, endIndex));
@@ -71,19 +65,17 @@ const Advertisements = () => {
         <Button
           label="Добавить объявление"
           icon="pi pi-plus"
-          style={{ marginBottom: 15 }}
+          severity="success"
+          style={{ marginBottom: 15, width: 240, fontSize: 14 }}
           onClick={() => setVisible(!visible)}
         />
       </div>
 
-      <div className="advertisements-filter">
-        <InputText
-          placeholder="Фильтр по названию"
-          value={filter}
-          onChange={({ target }) => setFilter(target.value.trim().toLowerCase())}
-        />
-        <Button icon="pi pi-times" text rounded size="small" onClick={() => setFilter('')} />
-      </div>
+      <AdvertisementsFilters
+        data={advertisements}
+        setData={setFiltered}
+        resetPages={() => setFirst(0)}
+      />
 
       {displayed.length > 0 && (
         <Paginator

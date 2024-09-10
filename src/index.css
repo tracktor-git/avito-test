@@ -190,14 +190,13 @@ body {
 	color: #5f2bc0;
 }
 
-.advertisements-filter {
-	position: relative;
-	max-width: 250px;
+.advertisements-filters {
+	display: flex;
+	gap: 5px;
 }
 
-.advertisements-filter button {
-	position: absolute;
-	right: 0;
+.advertisements-dropdown {
+	width: 240px;
 }
 
 .item-dialog-form {
