@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import { Image } from 'primereact/image';
-import AddItemDialog from './AddItemDialog';
+import ItemDialog from './ItemDialog';
 
 import { Advertisment } from '../types';
 
@@ -55,27 +55,24 @@ const Advertisement = () => {
           <div className="advertisement-image">
             <Image src={advertisement.imageUrl || noImage} indicatorIcon={<i className="pi pi-search" />} alt="Image" preview width="250" />
           </div>
+
           <div className="advertisement-info">
             <ul>
               <li>
-                <b>Дата создания:</b>
-                {' '}
-                {new Date(advertisement.createdAt).toLocaleString()}
+                <b>Дата создания: </b>
+                <span>{new Date(advertisement.createdAt).toLocaleString()}</span>
               </li>
               <li>
-                <b>Цена:</b>
-                {' '}
-                {formatNumber(advertisement.price)}
+                <b>Цена: </b>
+                <span>{formatNumber(advertisement.price)}</span>
               </li>
               <li>
-                <b>Просмотров:</b>
-                {' '}
-                {formatNumber(advertisement.views, 'number')}
+                <b>Просмотров: </b>
+                <span>{formatNumber(advertisement.views, 'number')}</span>
               </li>
               <li>
-                <b>Лайков:</b>
-                {' '}
-                {advertisement.likes}
+                <b>Лайков: </b>
+                <span>{advertisement.likes}</span>
               </li>
             </ul>
             <div className="advertisement-description">
@@ -84,12 +81,14 @@ const Advertisement = () => {
             </div>
           </div>
         </div>
+
         <div className="advertisement-controls">
           <Button icon="pi pi-pen-to-square" label="Редактировать объявление" onClick={() => setVisible(!visible)} />
           <Button icon="pi pi-trash" label="Удалить объявление" severity="danger" onClick={deleteAdvertisement} />
         </div>
       </Card>
-      <AddItemDialog mode="edit" data={advertisement} visible={visible} setVisible={() => setVisible(!visible)} updateData={updateData} />
+
+      <ItemDialog mode="edit" data={advertisement} visible={visible} setVisible={() => setVisible(!visible)} updateData={updateData} />
     </>
   );
 };

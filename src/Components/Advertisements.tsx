@@ -8,7 +8,7 @@ import { Paginator, PaginatorPageChangeEvent } from 'primereact/paginator';
 import { Toast } from 'primereact/toast';
 
 import AdvertisementCard from './AdvertismentCard';
-import AddItemDialog from './AddItemDialog';
+import ItemDialog from './ItemDialog';
 
 import { Advertisment } from '../types';
 
@@ -103,7 +103,7 @@ const Advertisements = () => {
         ))}
       </div>
 
-      <AddItemDialog
+      <ItemDialog
         mode="add"
         visible={visible}
         setVisible={setVisible}
