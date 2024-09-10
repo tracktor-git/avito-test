@@ -6,6 +6,16 @@ h1 {
 	text-align: center;
 }
 
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+p {
+	padding: 0;
+	margin: 0;
+}
+
 img {
 	display: block;
 	max-width: 100%;
@@ -21,38 +31,50 @@ body {
 	max-width: 1200px;
 	margin: 0 auto;
 	flex-wrap: wrap;
-	gap: 20px 40px;
+	gap: 20px;
 }
 
 .advertisements-wrapper .adv-link {
 	display: block;
-	text-decoration: none;
-	flex-basis: calc(100% / 4 - 40px);
+	flex-basis: calc(100% / 5 - 20px);
+	max-width: calc(100% / 5 - 20px);
+}
+
+.advertisements-wrapper .p-card-title {
+	font-size: 14px;
+	
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 @media (max-width: 1220px) {
 	.advertisements-wrapper {
-		max-width: 900px;
-	}
-
-	.advertisements-wrapper .adv-link {
-		flex-basis: calc(100% / 3 - 40px);
+		max-width: 1080px;
 	}
 }
 
-@media (max-width: 968px) {
+@media (max-width: 1080px) {
 	.advertisements-wrapper {
 		max-width: 100%;
 	}
 
 	.advertisements-wrapper .adv-link {
-		flex-basis: calc(100% / 2 - 40px);
+		flex-basis: calc(100% / 4 - 20px);
+		max-width: calc(100% / 4 - 20px);
+	}
+}
+
+@media (max-width: 860px) {
+	.advertisements-wrapper .adv-link {
+		flex-basis: calc(100% / 3 - 20px);
+		max-width: calc(100% / 3 - 20px);
 	}
 }
 
 @media (max-width: 640px) {
 	.advertisements-wrapper .adv-link {
-		flex-basis: calc(100% - 40px);
+		flex-basis: calc(100% - 20px);
 	}
 }
 
@@ -77,6 +99,20 @@ body {
 	object-fit: cover;
 }
 
+.card-footer {
+	display: flex;
+	flex-direction: column;
+	margin-top: 10px;
+	align-items: flex-start;
+	font-size: 12px;
+	gap: 7px;
+	color: #a0a0a0;
+}
+
+.advertisements-wrapper .p-card .p-card-content {
+	padding: 0;
+}
+
 .dialog-footer {
 	display: flex;
     align-items: center;
@@ -85,12 +121,7 @@ body {
 	gap: 10px;
 }
 
-.p-card-title {
-	font-size: 1.2rem;
-}
-
 .card-link a {
-	text-decoration: none;
 	color: #303030;
 	transition: color 0.2s ease-in-out;
 }
@@ -117,7 +148,6 @@ body {
 }
 
 .nav-button a {
-	text-decoration: none;
 	color: #555555;
 }
 
@@ -151,14 +181,12 @@ body {
 }
 
 .item-link a {
-	text-decoration: none;
 	color: inherit;
 	transition: color 0.2s ease-in;
 	text-overflow: ellipsis;
 }
 
 .item-link a:hover {
-	text-decoration: dashed;
 	color: #5f2bc0;
 }
 
@@ -170,4 +198,14 @@ body {
 .advertisements-filter button {
 	position: absolute;
 	right: 0;
+}
+
+.item-dialog-form {
+	display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.item-dialog-form p {
+	margin-bottom: 5px;
 }

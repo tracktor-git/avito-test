@@ -14,6 +14,13 @@ import { Advertisment } from '../types';
 
 const START_ITEMS_PER_PAGE = 10;
 
+const sortByDateDesc = (item1: Advertisment, item2: Advertisment) => {
+  const date1 = Number(new Date(item1.createdAt));
+  const date2 = Number(new Date(item2.createdAt));
+
+  return date2 - date1;
+};
+
 const Advertisements = () => {
   const [advertisements, setAdvertisements] = React.useState<Advertisment[]>([]);
   const [filtered, setFiltered] = React.useState<Advertisment[]>([]);
@@ -28,7 +35,11 @@ const Advertisements = () => {
   React.useEffect(() => {
     axios
       .get('http://localhost:3000/advertisements')
-      .then(({ data }) => { setAdvertisements(data); setFiltered(data); })
+      .then(({ data }) => {
+        const sortedData = data.sort(sortByDateDesc);
+        setAdvertisements(sortedData);
+        setFiltered(sortedData);
+      })
       .catch((error) => {
         console.error(error);
         toast.current?.show({ severity: 'error', summary: 'Ошибка загрузки объявлений...', detail: error.message });

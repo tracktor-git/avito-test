@@ -6,14 +6,6 @@ import { formatNumber } from '../utils';
 
 import noImage from '../assets/no-image.jpg';
 
-const cardInfoStyles: React.CSSProperties = {
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  color: '#ccc',
-  fontSize: 12,
-};
-
 const AdvertisementCard = (props: Advertisment) => {
   const {
     name,
@@ -33,7 +25,7 @@ const AdvertisementCard = (props: Advertisment) => {
         />
       </div>
 
-      <div style={cardInfoStyles}>
+      <div className="card-footer">
         <Tag icon="pi pi-tag" severity="success" value={formatNumber(price)} />
         <p title="Просмотров" className="card-info-item">
           <i className="pi pi-eye" />

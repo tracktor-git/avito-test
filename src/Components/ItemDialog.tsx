@@ -54,7 +54,7 @@ const AddItemDialog = (props: IAddItemDialog) => {
       setIsSubmitting(true);
       const newData = { ...formData, id: undefined, createdAt: new Date().toISOString() };
       const response = await axios.post('http://localhost:3000/advertisements', newData);
-      setData?.call(null, (prevData: Advertisment[]) => [...prevData, response.data]);
+      setData?.call(null, (prevData) => [response.data, ...prevData]);
     } catch (error) {
       console.error(error);
     } finally {
@@ -86,7 +86,7 @@ const AddItemDialog = (props: IAddItemDialog) => {
   return (
     <div className="card flex justify-content-center">
       <Dialog header={header} visible={visible} style={{ width: '50vw', maxWidth: 800 }} onHide={handleHide}>
-        <form onSubmit={handleAddItem}>
+        <form onSubmit={handleAddItem} className="item-dialog-form">
           <label>
             <p>Название:</p>
             <InputText
