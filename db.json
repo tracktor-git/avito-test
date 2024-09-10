@@ -1,0 +1,275 @@
+{
+  "advertisements": [
+    {
+      "id": "1",
+      "name": "Стул старинный",
+      "description": "Очень красивый",
+      "price": 2000,
+      "createdAt": "2022-08-12T20:16:55.351Z",
+      "views": 20,
+      "likes": 2,
+      "imageUrl": "https://kontora-k.ru/s_img/23514.jpg"
+    },
+    {
+      "id": "2",
+      "name": "Ведро снега",
+      "description": "Последняя возможность купить по выгодной цене!",
+      "price": 3000,
+      "createdAt": "2023-08-12T20:16:55.351Z",
+      "views": 77832,
+      "likes": 45666,
+      "imageUrl": "https://avatars.mds.yandex.net/i?id=8e0cf79c71977dda9c26225c32146eb7_l-5216285-images-thumbs&n=13"
+    },
+    {
+      "id": "3",
+      "name": "Плащ невидимка",
+      "price": 10000000,
+      "createdAt": "2024-08-12T20:16:55.351Z",
+      "views": 900,
+      "likes": 19,
+      "imageUrl": "https://avatars.mds.yandex.net/i?id=7e3ad36268e02af5c3dbffae46f2f521_l-4876323-images-thumbs&n=13"
+    },
+    {
+      "id": "4",
+      "name": "Ковер",
+      "description": "Стильный модный, как у бабушки в деревне :)))",
+      "price": 5000,
+      "createdAt": "2024-07-12T20:16:55.351Z",
+      "views": 2000000,
+      "likes": 2,
+      "imageUrl": ""
+    },
+    {
+      "id": "5",
+      "name": "Носки",
+      "price": 6000,
+      "createdAt": "2024-06-12T20:16:55.351Z",
+      "views": 0,
+      "likes": 0,
+      "imageUrl": ""
+    },
+    {
+      "id": "6",
+      "name": "Картонная коробка",
+      "description": "Прочная.",
+      "price": 7000,
+      "createdAt": "2024-04-12T20:16:55.351Z",
+      "views": 1,
+      "likes": 0,
+      "imageUrl": ""
+    },
+    {
+      "id": "7",
+      "name": "Угловой диван",
+      "description": "Стих для привлечения внимания: дама сдавала в багаж диван, чемодан, саквояж, картину, корзину, картонку и маленькую собачонку. выдали даме на станции четыре зеленых квитанции о том, что получен багаж: диван, чемодан, саквояж, картина, корзина, картонка и маленькая собачонка. вещи везут на перрон. кидают в открытый вагон. готово. уложен багаж: диван, чемодан, саквояж, картина, корзина, картонка и маленькая собачонка. но только раздался звонок, удрал из вагона щенок. хватились на станции дно: потеряно место одно. в испуге считают багаж: диван, чемодан, саквояж, картина, корзина, картонка… — товарищи! где собачонка? вдруг видят: стоит у колес огромный взъерошенный пес. поймали его — и в багаж, туда, где лежал саквояж, картина, корзина, картонка, где прежде была собачонка. приехали в город житомир. носильщик пятнадцатый номер везет на тележке багаж: диван, чемодан, саквояж, картину, корзину, картонку, а сзади ведут собачонку. собака-то как зарычит, а барыня как закричит: — разбойники! воры! уроды! собака — не той породы! швырнула она чемодан, ногой отпихнула диван, картину, корзину, картонку… — отдайте мою собачонку! — позвольте, мамаша! на станции, согласно багажной квитанции, от вас получили багаж: диван, чемодан, саквояж, картину, корзину, картонку и маленькую собачонку. однако за время пути собака могла подрасти!",
+      "price": 999,
+      "createdAt": "2024-08-12T14:16:55.351Z",
+      "views": 20000,
+      "likes": 1,
+      "imageUrl": "https://kontora-k.ru/s_img/2926.jpg"
+    },
+    {
+      "id": "8",
+      "name": "Новый айфон",
+      "price": 100000,
+      "createdAt": "2024-08-12T12:16:55.351Z",
+      "views": 200000,
+      "likes": 302,
+      "imageUrl": "https://cache3.youla.io/files/images/780_780/5d/89/5d89f5eec15ae311f42f48b4.jpg"
+    },
+    {
+      "id": "b3ea",
+      "name": "Ботинки мужские тёплые",
+      "description": "Продам.",
+      "imageUrl": "https://tabakur77.ru/wp-content/uploads/a/6/c/a6c4b410f117bba55f998f53b2c77374.jpeg",
+      "price": 3600,
+      "createdAt": "2024-09-08T12:44:20.005Z",
+      "views": 0,
+      "likes": 0
+    },
+    {
+      "id": "2986",
+      "name": "Лох узколистный",
+      "description": "Молодой, красивый",
+      "price": 1600,
+      "imageUrl": "https://cdn1.ozone.ru/s3/multimedia-i/6332280702.jpg",
+      "views": 0,
+      "createdAt": "2024-09-08T12:44:20.005Z",
+      "likes": 302
+    },
+    {
+      "id": "6085",
+      "name": "Телевизор LG",
+      "description": "Цветной, в рабочем состоянии",
+      "imageUrl": "https://yandex-images.clstorage.net/4D7Uep284/0bedcdL3Pkh/SN-zshSY1j0wqSqJJRUDzDS8Ppd0-GdR-vtLP-n9GBMQVBRDTyVQadPCckxWEIngu15qO6nlTuzJMKgnS1ptMRxPp6KDCRY8dbvoGiOWB8lnu25SJH4mUCy4XuSydYSPH8nM3ZI6D-8HwWdNkNYZ86EQ7Gq28lcgFLUupdKJe2DFVr29FY3evTY4rUVo0UpGLLV10iq0tRG-rkMidv_HzlLAQVpYuI7jRMCtB9KAHLKmGjps-3mbLx0x4mXTSbCmgRPwfdxP2TI__ilN6plLgmK0txQucn2esG-MYrX5DsyZCQYaWbqIZwLEak2cwRS4YxK5JLw-kuHd8edm2QK9pgpf-LseQBH2MbwvBOQVS44sfraQq3C4GPlnhG93P0qMWsSE3R5whWxJBKjK2gdesOja_-59eJMjWP3r4JoJPecDEbL4mUKQ8fkxpcBnFgEKq7Q3EWWz-db1psfueX8FRpEAjNadc8_rxcCuAJsPGzelnTgiezdcZBf0bqeaxD9ihZnyvFDAHTm_-e0FpRHBgSW8d1_qsfmVumiGJ7U9CYnSDIyR0T1OYIdIY0WVhdYw59o1KLyz2amduO3pWEM06MMTc7IVRxmwNzdlTO9YDoGt_nlQ4jA0EXOkiu15eE2LGUrO01u0jS1Nie-An8fXc2Pe9Wb_tp7vmj2rJhwOPKCJHjtzkg7cfjV5rsdj14FAbHc8ni28O9d16EljvPECyZ6Pzd8V8Mdjg4tkSVQEW_zrX7fm-vGQoRI17G3bwXuhQ5vy91ZHXLp58ycBq5UAC6p7OVAjOXLYNW7JKX-_AsXWBkYWVvnFIYOI6kEfxhXyKNk6Jb11XqEXeqJvU829b4PX87tSz9zysjDiwieSSwim8rpWr_k-mbpqh6O8vgnO20NBVxp8gOxDhiSF2o0d9GrZfOMyOtlo3PMraJUJfGEG2T86203f-rCz74zmXkhK63k1n2m0fFc4LwSqcw",
+      "price": 3000,
+      "createdAt": "2024-09-08T14:35:34.323Z",
+      "views": 0,
+      "likes": 0
+    },
+    {
+      "id": "8b9e",
+      "name": "Ванна чугунная",
+      "description": "Слегка обоссана",
+      "imageUrl": "https://unitdom.ru/image/cache/catalog/1-Tempra/561642.970-900x900.jpg",
+      "price": 6000,
+      "createdAt": "2024-09-08T14:37:00.123Z",
+      "views": 0,
+      "likes": 0
+    },
+    {
+      "id": "70e6",
+      "name": "Трусы мужские",
+      "description": "На жопе есть коричневый след",
+      "imageUrl": "https://cdn1.ozone.ru/s3/multimedia-v/6208755967.jpg",
+      "price": 500,
+      "createdAt": "2024-09-08T15:00:57.641Z",
+      "views": 0,
+      "likes": 0
+    },
+    {
+      "id": "f695",
+      "name": "Трусы бабкины",
+      "description": "Extra large",
+      "imageUrl": "https://otvet.imgsmail.ru/download/10336190_4435a5a5f73d8bcd8e3382070be2c7b7_800.jpg",
+      "price": 300,
+      "createdAt": "2024-09-08T15:16:14.808Z",
+      "views": 0,
+      "likes": 0
+    },
+    {
+      "id": "32ef",
+      "name": "Самогонный аппарат",
+      "description": "Классно гонит",
+      "imageUrl": "https://yandex-images.clstorage.net/4D7Uep284/0bedcdaCjxg/zEwgJVAO1Tk0Piga5dUGWaF__FNmfCMQOqkZ6rz434TUAECEDqTRPdPWs98Uhty5LJ4pOmnnzznJJPHyTluvcN2O5aJF2NF_talvDeTVzUXvd_ddrPa62nGnjGs-PM2Bg4aFGBQgQGBGz6sEEkzc_GidOGNz_VHomvpm5hoOtWqN0n_9GoFVMbr_Lswk3QuBZTS2EKV7PRDzJoAoP_aHw9WDxB8e9kYtzQOkDZaAHP2oVv4nNrCRIVj96e_cir3oxdO7sxtDkzV8N6HC5RJLQmP9tNtsPH0R8SAEbjsxzY2Ui87aFnUOaooKas1WhR_341v-rHq4V-NXNS3hnoz05knTt_3RQhewfvIni-0aRoClufQYob66VjstDyX780rLUsHGUd4zxKvMC6hIWomZtOjbv6U08hRkVbQqKRMGMGVKmTN6G8OWfr2z6YcsWceO5fY-02W2sdU4Z4ipP_WAilqEQRyZ9Aitg8TvB1MM3rQl2TojvLJQrdc54m_bTvWnTVm49BOD2PG_s6rI4hgOQqf68ZBptvaZduYD67c4xYTQSUZe3vkCagdBIo0fj5B2otKwZTYzXuhQPWvnFca87QSWuHxRjdf5Pn4uAS4UxI7ivvNbL_S0E_8lTiF2tACOkkgF2to5TCkCBmSKmslfMu_a-C87e59vGfil5VsNN2GLGXm92MgZNrJx6Adi10pLa_Gx3Or3uF27bwDvdD_JRVHEilJbe8wsRQgqApKOFPUgnfnlvrIbq1B4YanRhPGpyZgye9TN1zg3OOdH5FcAiCXxvZRjfHEesm1C73exwQ6TioSR3fYPa8HGKgfdwBZ9LFs3JfKzV6_Y-CliEkEyJc7TMXddTtG093SmyOAZiksk-raZJnswUjcojy95fwXL2IKC092wyeSOQePMVEkRu-iaOaD8f9YmWvshYJFMfOQC0HM61sEYcro2aEqlmoOEp3LzWK04MZ2_qEmrvU",
+      "price": 10000,
+      "createdAt": "2024-09-08T15:19:29.887Z",
+      "views": 0,
+      "likes": 0
+    },
+    {
+      "id": "801f",
+      "name": "Батарейки аккумуляторные",
+      "description": "Объём 2100 мАЧ, держат хорошо!",
+      "imageUrl": "https://avatars.mds.yandex.net/i?id=ae8d3d576fc03b18d4347dae06c6154a_l-4026845-images-thumbs&n=13",
+      "price": 580,
+      "createdAt": "2024-09-08T18:32:21.975Z",
+      "views": 0,
+      "likes": 0
+    },
+    {
+      "id": "f259",
+      "name": "Электрогитара",
+      "description": "Для новичка пойдёт",
+      "imageUrl": "https://avatars.mds.yandex.net/i?id=8476adf1da116da15e431b67f59cba3e_l-4827941-images-thumbs&n=13",
+      "price": 5000,
+      "createdAt": "2024-09-08T18:33:48.031Z",
+      "views": 0,
+      "likes": 0
+    },
+    {
+      "id": "9f98",
+      "name": "Струны Эрни болл",
+      "description": "Калибр 10-52",
+      "imageUrl": "https://avatars.mds.yandex.net/i?id=9f1b2581e37546e695769a859258407a_l-5882635-images-thumbs&n=13",
+      "price": 560,
+      "createdAt": "2024-09-08T18:34:42.207Z",
+      "views": 0,
+      "likes": 0
+    },
+    {
+      "id": "eb70",
+      "name": "Диск Король и шут",
+      "description": "Герои и Злодеи",
+      "imageUrl": "https://cdn1.ozone.ru/s3/multimedia-y/6362784202.jpg",
+      "price": 3500,
+      "createdAt": "2024-09-08T19:44:32.431Z",
+      "views": 0,
+      "likes": 0
+    },
+    {
+      "id": "f859",
+      "name": "Колонки",
+      "description": "Звук просто бомба! А какие басы даёт!",
+      "imageUrl": "https://avatars.dzeninfra.ru/get-zen_doc/1591100/pub_5ccb3ead583aa800af537b12_5ccb4666178ebe00b3e71251/scale_1200",
+      "price": 100,
+      "createdAt": "2024-09-08T20:50:38.574Z",
+      "views": 0,
+      "likes": 0
+    },
+    {
+      "id": "ddb7",
+      "name": "Кассета с музыкой",
+      "description": "Крутой звук!",
+      "imageUrl": "https://i.pinimg.com/736x/75/13/21/751321e7eef4335b10f67cf2bf98064d.jpg",
+      "price": 100,
+      "createdAt": "2024-09-10T07:24:33.169Z",
+      "views": 0,
+      "likes": 0
+    }
+  ],
+  "orders": [
+    {
+      "id": "1",
+      "status": 0,
+      "createdAt": "2024-08-12T20:20:55.351Z",
+      "finishedAt": "",
+      "total": 314000,
+      "deliveryWay": "mail",
+      "items": [
+        {
+          "id": "8",
+          "name": "Новый айфон",
+          "price": 100000,
+          "createdAt": "2024-08-12T12:16:55.351Z",
+          "views": 200000,
+          "likes": 302,
+          "imageUrl": "",
+          "count": 3
+        },
+        {
+          "id": "6",
+          "name": "Картонная коробка",
+          "description": "Почная.",
+          "price": 7000,
+          "createdAt": "2024-04-12T20:16:55.351Z",
+          "views": 1,
+          "likes": 0,
+          "imageUrl": "",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "status": 4,
+      "createdAt": "2024-08-12T20:20:55.351Z",
+      "finishedAt": "2024-08-12T20:25:55.351Z",
+      "total": 33000,
+      "deliveryWay": "sdek",
+      "items": [
+        {
+          "id": "2",
+          "name": "Ведро снега",
+          "description": "Последняя возможность купить по выгодной цене!",
+          "price": 3000,
+          "createdAt": "2023-08-12T20:16:55.351Z",
+          "views": 77832,
+          "likes": 45666,
+          "imageUrl": "",
+          "count": 10
+        },
+        {
+          "id": "5",
+          "name": "Носки",
+          "price": 6000,
+          "createdAt": "2024-06-12T20:16:55.351Z",
+          "views": 0,
+          "likes": 0,
+          "imageUrl": "",
+          "count": 5
+        }
+      ]
+    }
+  ]
+}

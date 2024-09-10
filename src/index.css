@@ -1,0 +1,173 @@
+* {
+	box-sizing: border-box;
+}
+
+h1 {
+	text-align: center;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+}
+
+body {
+	background-color: #fafafa;
+}
+
+.advertisements-wrapper {
+	display: flex;
+	justify-content: center;
+	max-width: 1200px;
+	margin: 0 auto;
+	flex-wrap: wrap;
+	gap: 20px 40px;
+}
+
+.advertisements-wrapper .adv-link {
+	display: block;
+	text-decoration: none;
+	flex-basis: calc(100% / 4 - 40px);
+}
+
+@media (max-width: 1220px) {
+	.advertisements-wrapper {
+		max-width: 900px;
+	}
+
+	.advertisements-wrapper .adv-link {
+		flex-basis: calc(100% / 3 - 40px);
+	}
+}
+
+@media (max-width: 968px) {
+	.advertisements-wrapper {
+		max-width: 100%;
+	}
+
+	.advertisements-wrapper .adv-link {
+		flex-basis: calc(100% / 2 - 40px);
+	}
+}
+
+@media (max-width: 640px) {
+	.advertisements-wrapper .adv-link {
+		flex-basis: calc(100% - 40px);
+	}
+}
+
+.card-info-item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 5px;
+}
+
+.card-image {
+	position: relative;
+	width: 100%; 
+	aspect-ratio: 1/1;
+	overflow: hidden;
+}
+  
+.card-image img {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.dialog-footer {
+	display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 15px;
+	gap: 10px;
+}
+
+.p-card-title {
+	font-size: 1.2rem;
+}
+
+.card-link a {
+	text-decoration: none;
+	color: #303030;
+	transition: color 0.2s ease-in-out;
+}
+
+.card-link a:hover {
+	color: #505050;
+}
+
+.navigation-buttons {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	border: 1px solid #ebebeb;
+	border-radius: 4px;
+	padding: 10px;
+}
+
+.nav-button {
+	color: #555555;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 5px;
+}
+
+.nav-button a {
+	text-decoration: none;
+	color: #555555;
+}
+
+.p-paginator.p-component {
+	background-color: inherit;
+}
+
+.advertisement-main-block {
+	display: flex;
+	gap: 20px;
+}
+
+.advertisement-main-block ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.advertisement-info {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	max-width: calc(100% - 250px - 20px); /* Размер изображения и gap */
+}
+
+.advertisement-controls {
+	display: flex;
+	margin-top: 15px;
+	align-items: center;
+	gap: 10px;
+}
+
+.item-link a {
+	text-decoration: none;
+	color: inherit;
+	transition: color 0.2s ease-in;
+	text-overflow: ellipsis;
+}
+
+.item-link a:hover {
+	text-decoration: dashed;
+	color: #5f2bc0;
+}
+
+.advertisements-filter {
+	position: relative;
+	max-width: 250px;
+}
+
+.advertisements-filter button {
+	position: absolute;
+	right: 0;
+}
