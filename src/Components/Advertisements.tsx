@@ -52,6 +52,12 @@ const Advertisements = () => {
     setDisplayed(filtered.slice(startIndex, endIndex));
   }, [first, rows, filtered]);
 
+  React.useEffect(() => {
+    const startIndex = first;
+    const endIndex = first + rows;
+    setDisplayed(advertisements.slice(startIndex, endIndex));
+  }, [first, rows, advertisements]);
+
   const onPageChange = (event: PaginatorPageChangeEvent) => {
     setFirst(event.first);
     setRows(event.rows);
