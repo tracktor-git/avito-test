@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import { Image } from 'primereact/image';
+import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import ItemDialog from './ItemDialog';
 
 import { Advertisment } from '../types';
@@ -29,13 +30,21 @@ const Advertisement = () => {
     return <p>Нет данных...</p>;
   }
 
-  const deleteAdvertisement = async () => {
-    try {
-      await axios.delete(`http://localhost:3000/advertisements/${id}`);
-      navigate('/');
-    } catch (error) {
-      console.error(error);
-    }
+  const handleDeleteAdvertisement = () => {
+    const deleteAdvertisement = () => axios
+      .delete(`http://localhost:3000/advertisements/${id}`)
+      .then(() => navigate('/'))
+      .catch();
+
+    confirmDialog({
+      message: 'Вы хотите удалить это объявление?',
+      header: 'Удаление объявления',
+      icon: 'pi pi-exclamation-triangle',
+      defaultFocus: 'accept',
+      acceptLabel: 'Да',
+      rejectLabel: 'Нет',
+      accept: deleteAdvertisement,
+    });
   };
 
   const updateData = async (data: Advertisment) => {
@@ -84,11 +93,12 @@ const Advertisement = () => {
 
         <div className="advertisement-controls">
           <Button icon="pi pi-pen-to-square" label="Редактировать объявление" onClick={() => setVisible(!visible)} />
-          <Button icon="pi pi-trash" label="Удалить объявление" severity="danger" onClick={deleteAdvertisement} />
+          <Button icon="pi pi-trash" label="Удалить объявление" severity="danger" onClick={handleDeleteAdvertisement} />
         </div>
       </Card>
 
       <ItemDialog mode="edit" data={advertisement} visible={visible} setVisible={() => setVisible(!visible)} updateData={updateData} />
+      <ConfirmDialog />
     </>
   );
 };
