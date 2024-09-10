@@ -64,11 +64,6 @@ const AddItemDialog = (props: IAddItemDialog) => {
     }
   };
 
-  const handleHide = () => {
-    if (!visible) return;
-    setVisible(false);
-  };
-
   type HandleChangeType = React.FormEvent<HTMLInputElement> | React.FormEvent<HTMLTextAreaElement>;
 
   const handleChange = (event: HandleChangeType) => {
@@ -85,7 +80,7 @@ const AddItemDialog = (props: IAddItemDialog) => {
 
   return (
     <div className="card flex justify-content-center">
-      <Dialog header={header} visible={visible} style={{ width: '50vw', maxWidth: 800 }} onHide={handleHide}>
+      <Dialog header={header} visible={visible} style={{ width: '50vw', maxWidth: 800 }} onHide={() => setVisible(false)}>
         <form onSubmit={handleAddItem} className="item-dialog-form">
           <label>
             <p>Название:</p>

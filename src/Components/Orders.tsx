@@ -4,6 +4,7 @@ import { Column } from 'primereact/column';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
+import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
 import { Link } from 'react-router-dom';
 import { Toast } from 'primereact/toast';
@@ -55,20 +56,13 @@ const getOrderStatusText = (status: number): string | undefined => {
 const ShowItemsDialog = (props: IShowItemDialog) => {
   const { items, visible, setVisible } = props;
 
-  const handleHide = () => {
-    if (!visible) return;
-    setVisible(false);
-  };
-
   return (
-    <Dialog header="Объявления в товаре" visible={visible} onHide={handleHide} style={{ minWidth: 320 }}>
-      {
-        items.map((item: Advertisment) => (
-          <p key={item.id} className="item-link">
-            <Link to={`/advertisements/${item.id}`} target="_blank">{item.name}</Link>
-          </p>
-        ))
-      }
+    <Dialog header="Объявления в товаре" visible={visible} onHide={() => setVisible(false)} style={{ minWidth: 320 }}>
+      {items.map((item: Advertisment) => (
+        <p key={item.id} className="item-link">
+          <Link to={`/advertisements/${item.id}`} target="_blank">{item.name}</Link>
+        </p>
+      ))}
     </Dialog>
   );
 };
@@ -77,6 +71,7 @@ const Orders = () => {
   const [orders, setOrders] = React.useState<Order[]>([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [isItemsLoading, setIsItemsLoading] = React.useState(false);
+  const [isFinishingOrder, setIsFinishingOrder] = React.useState(false);
   const [visible, setVisible] = React.useState(false);
   const [items, setItems] = React.useState([]);
   const [selectedStatus, setSelectedStatus] = React.useState<SelectedStatusType>(null);
@@ -84,8 +79,12 @@ const Orders = () => {
   const toast = React.useRef<Toast>(null);
 
   React.useEffect(() => {
-    const url = selectedStatus ? `http://localhost:3000/orders?status=${selectedStatus.code}` : 'http://localhost:3000/orders';
+    const url = selectedStatus
+      ? `http://localhost:3000/orders?status=${selectedStatus.code}`
+      : 'http://localhost:3000/orders';
+
     setIsLoading(true);
+
     axios
       .get(url)
       .then((response) => setOrders(response.data))
@@ -111,9 +110,52 @@ const Orders = () => {
       .finally(() => setIsItemsLoading(false));
   };
 
+  const handleFinishOrder = (data: Order) => {
+    const finishedAt = new Date().toISOString();
+    const status = OrderStatus.Received;
+
+    const newData = { ...data, finishedAt, status };
+    const newOrders = orders.map((order) => (order.id === data.id ? newData : order));
+
+    const finishOrder = () => {
+      setIsFinishingOrder(true);
+      axios
+        .put(`http://localhost:3000/orders/${data.id}`, newData)
+        .then(() => setOrders(newOrders))
+        .catch((error) => {
+          console.error(error);
+          toast.current?.show({ severity: 'error', summary: 'Не удалось завершить заказ', detail: error.message });
+        })
+        .finally(() => setIsFinishingOrder(false));
+    };
+
+    confirmDialog({
+      message: 'Вы хотите завершить этот заказ?',
+      header: 'Завершение заказа',
+      icon: 'pi pi-exclamation-triangle',
+      defaultFocus: 'accept',
+      acceptLabel: 'Да',
+      rejectLabel: 'Нет',
+      accept: finishOrder,
+    });
+  };
+
+  const finishOrderButton = (data: Order) => (
+    <Button
+      severity="success"
+      size="small"
+      icon={isFinishingOrder ? 'pi pi-spin pi-spinner' : 'pi pi-check'}
+      onClick={() => handleFinishOrder(data)}
+      disabled={isFinishingOrder}
+      text
+    />
+  );
+
   const createdAtBody = (data: Order) => new Date(data.createdAt).toLocaleString();
   const totalBody = (data: Order) => formatNumber(data.total);
-  const finishedAtBody = (data: Order) => (data.finishedAt ? new Date(data.finishedAt).toLocaleString() : '-');
+  const finishedAtBody = (data: Order) => (
+    data.finishedAt ? new Date(data.finishedAt).toLocaleString() : finishOrderButton(data)
+  );
 
   const itemsCountBody = (data: Order) => (
     <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -142,13 +184,12 @@ const Orders = () => {
         {!orders.length && isLoading && <div>Загрузка...</div>}
 
         <Dropdown
+          optionLabel="name"
+          placeholder="Выберите статус заказа"
+          style={{ minWidth: 320, marginBottom: 10 }}
           value={selectedStatus}
           onChange={handleFilterOrders}
           options={statuses}
-          optionLabel="name"
-          placeholder="Выберите статус заказа"
-          className="w-full md:w-14rem"
-          style={{ minWidth: 320, marginBottom: 10 }}
           showClear
         />
 
@@ -164,6 +205,7 @@ const Orders = () => {
       </Card>
 
       <ShowItemsDialog visible={visible} setVisible={setVisible} items={items} />
+      <ConfirmDialog />
       <Toast ref={toast} />
     </>
   );

@@ -19,9 +19,10 @@ const AdvertisementCard = (props: Advertisment) => {
     <Card title={name}>
       <div className="card-image">
         <img
-          src={imageUrl || noImage}
-          alt={name}
+          loading="lazy"
           style={{ maxWidth: '100%', pointerEvents: 'none', userSelect: 'none' }}
+          alt={name}
+          src={imageUrl || noImage}
         />
       </div>
 
