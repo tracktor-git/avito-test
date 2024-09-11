@@ -1,0 +1,77 @@
+import React from 'react';
+import { Dialog } from 'primereact/dialog';
+import { Toast } from 'primereact/toast';
+import axios from 'axios';
+import ItemForm from './ItemForm';
+
+import { Advertisment } from '../types';
+
+const initialData = {
+  name: '',
+  description: '',
+  imageUrl: '',
+  price: 0,
+  createdAt: '',
+  views: 0,
+  likes: 0,
+};
+
+interface IAddItemDialog {
+  visible: boolean;
+  setVisible: (value: boolean) => void;
+  setData: (item: Advertisment) => void;
+}
+
+const AddItemDialog = (props: IAddItemDialog) => {
+  const {
+    visible,
+    setVisible,
+    setData,
+  } = props;
+
+  const [formData, setFormData] = React.useState<Omit<Advertisment, 'id'>>(initialData);
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+
+  const toast = React.useRef<Toast>(null);
+
+  const handleAddItem = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+
+    const newData = { ...initialData, ...formData, createdAt: new Date().toISOString() };
+
+    axios
+      .post('http://localhost:3000/advertisements', newData)
+      .then(({ data }) => setData(data))
+      .catch((error) => {
+        console.error(error);
+        toast.current?.show({ severity: 'error', summary: 'Ошибка добавления объявления', detail: error.message });
+      })
+      .finally(() => {
+        setVisible(false);
+        setIsSubmitting(false);
+      });
+  };
+
+  return (
+    <>
+      <Dialog
+        header="Добавить объявление"
+        visible={visible}
+        style={{ width: '50vw', maxWidth: 800 }}
+        onHide={() => setVisible(false)}
+      >
+        <ItemForm
+          submitLabel="Добавить"
+          onCancel={() => setVisible(false)}
+          isDisabled={isSubmitting}
+          onSubmit={handleAddItem}
+          setValues={setFormData}
+        />
+      </Dialog>
+      <Toast ref={toast} />
+    </>
+  );
+};
+
+export default AddItemDialog;

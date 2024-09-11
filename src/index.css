@@ -79,7 +79,8 @@ body {
 
 @media (max-width: 640px) {
 	.advertisements-wrapper .adv-link {
-		flex-basis: calc(100% - 20px);
+		flex-basis: calc(100% / 2 - 20px);
+		max-width: calc(100% / 2 - 20px);
 	}
 }
 
@@ -118,7 +119,7 @@ body {
 	padding: 0;
 }
 
-.dialog-footer {
+.item-form-footer {
 	display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -212,4 +213,9 @@ body {
 
 .item-dialog-form p {
 	margin-bottom: 5px;
+}
+
+.item-dialog-form input,
+.item-dialog-form textarea {
+	width: 100%;
 }

@@ -5,10 +5,9 @@ import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import { Image } from 'primereact/image';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
-import ItemDialog from './ItemDialog';
+import EditItemDialog from './EditItemDialog';
 
 import { Advertisment } from '../types';
-
 import { formatNumber } from '../utils';
 
 import noImage from '../assets/no-image.jpg';
@@ -34,7 +33,7 @@ const Advertisement = () => {
     const deleteAdvertisement = () => axios
       .delete(`http://localhost:3000/advertisements/${id}`)
       .then(() => navigate('/'))
-      .catch();
+      .catch((error) => console.error('Ошибка удаления товара:', error));
 
     confirmDialog({
       message: 'Вы хотите удалить это объявление?',
@@ -45,16 +44,6 @@ const Advertisement = () => {
       rejectLabel: 'Нет',
       accept: deleteAdvertisement,
     });
-  };
-
-  const updateData = async (data: Advertisment) => {
-    try {
-      await axios.put(`http://localhost:3000/advertisements/${id}`, data);
-      setAdvertisement(data);
-      setVisible(false);
-    } catch (error) {
-      console.error(error);
-    }
   };
 
   return (
@@ -97,7 +86,12 @@ const Advertisement = () => {
         </div>
       </Card>
 
-      <ItemDialog mode="edit" data={advertisement} visible={visible} setVisible={() => setVisible(!visible)} updateData={updateData} />
+      <EditItemDialog
+        data={advertisement}
+        visible={visible}
+        setVisible={setVisible}
+        setData={setAdvertisement}
+      />
       <ConfirmDialog />
     </>
   );
