@@ -4,6 +4,8 @@ import { Toast } from 'primereact/toast';
 import axios from 'axios';
 import ItemForm from './ItemForm';
 
+import routes from '../routes';
+
 import { Advertisment } from '../types';
 
 interface IEditItemDialog {
@@ -31,7 +33,7 @@ const EditItemDialog = (props: IEditItemDialog) => {
     setIsSubmitting(true);
 
     axios
-      .put(`http://localhost:3000/advertisementsg/${data.id}`, formData)
+      .put(`${routes.advertisements}/${data.id}`, formData)
       .then((response) => setData(response.data))
       .catch((error) => {
         console.error(error);

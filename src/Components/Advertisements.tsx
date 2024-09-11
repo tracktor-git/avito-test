@@ -6,8 +6,9 @@ import { Link } from 'react-router-dom';
 import { Paginator, PaginatorPageChangeEvent } from 'primereact/paginator';
 import { Toast } from 'primereact/toast';
 
+import routes from '../routes';
+
 import AdvertisementCard from './AdvertismentCard';
-// import ItemDialog from './ItemDialog';
 import AddItemDialog from './AddItemDialog';
 
 import { Advertisment } from '../types';
@@ -35,7 +36,7 @@ const Advertisements = () => {
   const toast = React.useRef<Toast>(null);
 
   React.useEffect(() => {
-    const url = new URL('advertisements', 'http://localhost:3000');
+    const url = new URL(routes.advertisements);
     url.searchParams.set('_page', String(page));
     url.searchParams.set('_limit', String(rows));
     url.searchParams.set('_sort', 'createdAt');

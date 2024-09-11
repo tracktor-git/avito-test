@@ -12,6 +12,8 @@ import { Toast } from 'primereact/toast';
 
 import axios from 'axios';
 
+import routes from '../routes';
+
 import { Order, Advertisment, OrderStatus } from '../types';
 
 import { formatNumber } from '../utils';
@@ -81,9 +83,7 @@ const Orders = () => {
   const toast = React.useRef<Toast>(null);
 
   React.useEffect(() => {
-    const url = selectedStatus
-      ? `http://localhost:3000/orders?status=${selectedStatus.code}`
-      : 'http://localhost:3000/orders';
+    const url = selectedStatus ? `${routes.orders}?status=${selectedStatus.code}` : routes.orders;
 
     setIsLoading(true);
 
@@ -101,7 +101,7 @@ const Orders = () => {
   const handleShowItems = (id: string) => () => {
     setIsItemsLoading(true);
     axios
-      .get(`http://localhost:3000/orders/${id}`)
+      .get(`${routes.orders}/${id}`)
       .then((response) => setItems(response.data.items))
       .then(() => setVisible(true))
       .catch((error) => {
@@ -122,7 +122,7 @@ const Orders = () => {
     const finishOrder = () => {
       setIsFinishingOrder(true);
       axios
-        .put(`http://localhost:3000/orders/${data.id}`, newData)
+        .put(`${routes.orders}/${data.id}`, newData)
         .then(() => setOrders(newOrders))
         .catch((error) => {
           console.error(error);

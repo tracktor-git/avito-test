@@ -5,6 +5,7 @@ import axios from 'axios';
 import ItemForm from './ItemForm';
 
 import { Advertisment } from '../types';
+import routes from '../routes';
 
 const initialData = {
   name: '',
@@ -41,7 +42,7 @@ const AddItemDialog = (props: IAddItemDialog) => {
     const newData = { ...initialData, ...formData, createdAt: new Date().toISOString() };
 
     axios
-      .post('http://localhost:3000/advertisements', newData)
+      .post(routes.advertisements, newData)
       .then(({ data }) => setData(data))
       .catch((error) => {
         console.error(error);

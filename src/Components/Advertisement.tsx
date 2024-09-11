@@ -9,6 +9,7 @@ import EditItemDialog from './EditItemDialog';
 
 import { Advertisment } from '../types';
 import { formatNumber } from '../utils';
+import routes from '../routes';
 
 import noImage from '../assets/no-image.jpg';
 
@@ -20,7 +21,7 @@ const Advertisement = () => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    axios.get(`http://localhost:3000/advertisements/${id}`)
+    axios.get(`${routes.advertisements}/${id}`)
       .then((response) => setAdvertisement(response.data))
       .catch((error) => console.error('Ошибка загрузки товара:', error));
   }, [id]);
@@ -31,7 +32,7 @@ const Advertisement = () => {
 
   const handleDeleteAdvertisement = () => {
     const deleteAdvertisement = () => axios
-      .delete(`http://localhost:3000/advertisements/${id}`)
+      .delete(`${routes.advertisements}/${id}`)
       .then(() => navigate('/'))
       .catch((error) => console.error('Ошибка удаления товара:', error));
 
