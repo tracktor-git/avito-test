@@ -118,13 +118,6 @@ const Advertisements = () => {
         ))}
       </div>
 
-      {/* <ItemDialog
-        mode="add"
-        visible={visible}
-        setVisible={setVisible}
-        setData={handleAddItem}
-      /> */}
-
       <AddItemDialog visible={visible} setVisible={setVisible} setData={handleAddItem} />
 
       <Toast ref={toast} />

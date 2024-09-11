@@ -57,8 +57,8 @@ const AddItemDialog = (props: IAddItemDialog) => {
     <>
       <Dialog
         header="Добавить объявление"
+        className="add-item-dialog"
         visible={visible}
-        style={{ width: '50vw', maxWidth: 800 }}
         onHide={() => setVisible(false)}
       >
         <ItemForm
