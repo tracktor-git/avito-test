@@ -3,7 +3,7 @@ import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 
-import { Advertisment } from '../types';
+import { Filter } from './Advertisements';
 
 type OptionCodes = 'name' | 'price' | 'views' | 'likes';
 type FilterOption = { name: string, code: OptionCodes };
@@ -16,53 +16,37 @@ const options: FilterOption[] = [
 ];
 
 interface IAdvertisementsFilters {
-  data: Advertisment[];
-  setData: React.Dispatch<React.SetStateAction<Advertisment[]>>;
-  resetPages: () => void;
+  resetPage: () => void;
+  setFilter: React.Dispatch<React.SetStateAction<Filter>>;
 }
 
 const AdvertisementsFilters = (props: IAdvertisementsFilters) => {
-  const { data, setData, resetPages } = props;
+  const { resetPage, setFilter } = props;
 
   const [selectedOption, setSelectedOption] = React.useState<FilterOption | null>(null);
   const [value, setValue] = React.useState('');
 
-  React.useEffect(() => {
-    if (!selectedOption && selectedOption !== null) setData(data);
-  }, [selectedOption, data, setData]);
-
-  const filterStrings = () => data.filter((item) => item.name.toLowerCase().includes(value));
-  const filterNumbers = () => data.filter((item) => {
-    const key = selectedOption ? item[selectedOption.code] : null;
-
-    if (key || key === 0) {
-      return key === Number(value);
-    }
-
-    return false;
-  });
-
   const map = {
-    name: { placeholder: 'Введите наименование', filter: filterStrings },
-    price: { placeholder: 'Введите цену', filter: filterNumbers },
-    views: { placeholder: 'Введите кол-во просмотров', filter: filterNumbers },
-    likes: { placeholder: 'Введите кол-во лайков', filter: filterNumbers },
+    name: 'Введите наименование',
+    price: 'Введите цену',
+    views: 'Введите кол-во просмотров',
+    likes: 'Введите кол-во лайков',
   };
 
-  const placeholder = selectedOption ? map[selectedOption.code].placeholder : undefined;
-  const currentFilter = selectedOption ? map[selectedOption.code].filter : null;
+  const placeholder = selectedOption ? map[selectedOption.code] : undefined;
 
   const handleFilter = () => {
-    if (!currentFilter || !value) return;
-    setData(currentFilter());
-    resetPages();
+    if (!selectedOption?.code) return;
+
+    const filter: Filter = { name: selectedOption?.code, value };
+    setFilter(filter);
+    resetPage();
   };
 
   const handleDropdownChange = (event: DropdownChangeEvent) => {
     setSelectedOption(event.value);
+    setFilter(null);
     setValue('');
-    resetPages();
-    setData(data);
   };
 
   return (

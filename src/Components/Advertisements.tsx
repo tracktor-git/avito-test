@@ -13,54 +13,60 @@ import { Advertisment } from '../types';
 
 import AdvertisementsFilters from './AdvertisementsFilters';
 
-const START_ITEMS_PER_PAGE = 10;
+const filterMap = {
+  name: 'name_like',
+  price: 'price',
+  views: 'views',
+  likes: 'likes',
+} as const;
 
-const sortByDateDesc = (item1: Advertisment, item2: Advertisment) => {
-  const date1 = Number(new Date(item1.createdAt));
-  const date2 = Number(new Date(item2.createdAt));
-
-  return date2 - date1;
-};
+export type Filter = { name: keyof typeof filterMap, value: string } | null;
 
 const Advertisements = () => {
   const [advertisements, setAdvertisements] = React.useState<Advertisment[]>([]);
-  const [filtered, setFiltered] = React.useState<Advertisment[]>([]);
-  const [displayed, setDisplayed] = React.useState<Advertisment[]>([]);
+  const [page, setPage] = React.useState(1);
+  const [totalCount, setTotalCount] = React.useState(0);
   const [visible, setVisible] = React.useState<boolean>(false);
   const [first, setFirst] = React.useState<number>(0);
-  const [rows, setRows] = React.useState<number>(START_ITEMS_PER_PAGE);
+  const [rows, setRows] = React.useState<number>(10);
+  const [filter, setFilter] = React.useState<Filter>(null);
 
   const toast = React.useRef<Toast>(null);
 
   React.useEffect(() => {
+    const url = new URL('advertisements', 'http://localhost:3000');
+    url.searchParams.set('_page', String(page));
+    url.searchParams.set('_limit', String(rows));
+    url.searchParams.set('_sort', 'createdAt');
+    url.searchParams.set('_order', 'desc');
+
+    if (filter?.name) {
+      url.searchParams.set(filterMap[filter.name], filter.value);
+    }
+
     axios
-      .get('http://localhost:3000/advertisements')
-      .then(({ data }) => {
-        const sortedData = data.sort(sortByDateDesc);
-        setAdvertisements(sortedData);
-        setFiltered(sortedData);
+      .get(url.href)
+      .then((response) => {
+        setAdvertisements(response.data);
+        setTotalCount(response.headers['x-total-count']);
       })
       .catch((error) => {
         console.error(error);
         toast.current?.show({ severity: 'error', summary: 'Ошибка загрузки объявлений...', detail: error.message });
       });
-  }, []);
-
-  React.useEffect(() => {
-    const startIndex = first;
-    const endIndex = first + rows;
-    setDisplayed(filtered.slice(startIndex, endIndex));
-  }, [first, rows, filtered]);
-
-  React.useEffect(() => {
-    const startIndex = first;
-    const endIndex = first + rows;
-    setDisplayed(advertisements.slice(startIndex, endIndex));
-  }, [first, rows, advertisements]);
+  }, [rows, page, filter]);
 
   const onPageChange = (event: PaginatorPageChangeEvent) => {
     setFirst(event.first);
     setRows(event.rows);
+    setPage(event.page + 1);
+  };
+
+  const handleAddItem = (item: Advertisment) => {
+    setPage(1);
+    setFirst(0);
+    setRows(rows);
+    setAdvertisements((prevState) => [item, ...prevState]);
   };
 
   return (
@@ -78,16 +84,15 @@ const Advertisements = () => {
       </div>
 
       <AdvertisementsFilters
-        data={advertisements}
-        setData={setFiltered}
-        resetPages={() => setFirst(0)}
+        setFilter={setFilter}
+        resetPage={() => setPage(1)}
       />
 
-      {displayed.length > 0 && (
+      {advertisements.length > 0 && (
         <Paginator
           first={first}
           rows={rows}
-          totalRecords={filtered.length} // Количество записей после фильтрации
+          totalRecords={totalCount}
           rowsPerPageOptions={[10, 20, 30, 50, 100]}
           onPageChange={onPageChange}
           style={{ marginBottom: 10 }}
@@ -95,9 +100,9 @@ const Advertisements = () => {
       )}
 
       <div className="advertisements-wrapper">
-        {!displayed.length && <div>Нет объявлений для отображения...</div>}
+        {!advertisements.length && <div>Нет объявлений для отображения...</div>}
 
-        {displayed.map((item: Advertisment) => (
+        {advertisements.map((item: Advertisment) => (
           <Link to={`/advertisements/${item.id}`} key={item.id} className="adv-link">
             <AdvertisementCard
               id={item.id}
@@ -116,7 +121,7 @@ const Advertisements = () => {
         mode="add"
         visible={visible}
         setVisible={setVisible}
-        setData={setAdvertisements}
+        setData={handleAddItem}
       />
 
       <Toast ref={toast} />

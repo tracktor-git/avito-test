@@ -38,6 +38,11 @@ body {
 	display: block;
 	flex-basis: calc(100% / 5 - 20px);
 	max-width: calc(100% / 5 - 20px);
+	transition: transform 0.2s ease;
+}
+
+.advertisements-wrapper .adv-link:hover {
+	transform: translateY(-3px);
 }
 
 .advertisements-wrapper .p-card-title {

@@ -13,7 +13,7 @@ interface IAddItemDialog {
   visible: boolean;
   setVisible: (value: boolean) => void;
   updateData?: (data: Advertisment) => void;
-  setData?: React.Dispatch<React.SetStateAction<Advertisment[]>>;
+  setData?: (item: Advertisment) => void;
   mode: 'edit' | 'add';
   data?: Advertisment;
 }
@@ -54,7 +54,7 @@ const AddItemDialog = (props: IAddItemDialog) => {
       setIsSubmitting(true);
       const newData = { ...formData, id: undefined, createdAt: new Date().toISOString() };
       const response = await axios.post('http://localhost:3000/advertisements', newData);
-      setData?.call(null, (prevData) => [response.data, ...prevData]);
+      setData?.call(null, response.data);
     } catch (error) {
       console.error(error);
     } finally {
@@ -68,7 +68,7 @@ const AddItemDialog = (props: IAddItemDialog) => {
 
   const handleChange = (event: HandleChangeType) => {
     const { name, value } = event.currentTarget;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
+    setFormData((prevData) => ({ ...prevData, [name]: value.trim() }));
   };
 
   const handleChangePrice = (event: InputNumberChangeEvent) => {
