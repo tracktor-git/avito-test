@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
@@ -13,7 +14,7 @@ const options: FilterOption[] = [
   { name: 'По цене', code: 'price' },
   { name: 'По просмотрам', code: 'views' },
   { name: 'По лайкам', code: 'likes' },
-];
+] as const;
 
 interface IAdvertisementsFilters {
   resetPage: () => void;
@@ -36,7 +37,7 @@ const AdvertisementsFilters = (props: IAdvertisementsFilters) => {
   const placeholder = selectedOption ? map[selectedOption.code] : undefined;
 
   const handleFilter = () => {
-    if (!selectedOption?.code) return;
+    if (!selectedOption?.code || !value) return;
 
     const filter: Filter = { name: selectedOption?.code, value };
     setFilter(filter);
