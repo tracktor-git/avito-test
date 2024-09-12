@@ -1,26 +1,18 @@
 export const formatNumber = (n: number, type: 'price' | 'number' = 'price') => {
-  if (type === 'number') {
-    return new Intl.NumberFormat('ru-RU').format(n);
-  }
-
   const formatter = new Intl.NumberFormat('ru-RU', {
-    style: 'currency',
+    style: type === 'price' ? 'currency' : undefined,
     currency: 'RUB',
     minimumFractionDigits: 0, // Убираем копейки, если они не нужны
     maximumFractionDigits: 2, // Оставляем копейки, если они есть
   });
 
-  // Проверка, есть ли копейки
-  if (n % 1 === 0) {
-    return formatter.format(n); // Целое число без копеек
-  }
+  // Проверяем, есть ли дробная часть
+  const hasFraction = n % 1 !== 0;
 
-  return new Intl.NumberFormat('ru-RU', {
-    style: 'currency',
-    currency: 'RUB',
-    minimumFractionDigits: 2, // Если есть копейки, показываем 2 знака после запятой
-    maximumFractionDigits: 2,
-  }).format(n);
+  // Меняем количество знаков после запятой, если есть дробная часть
+  formatter.resolvedOptions().minimumFractionDigits = hasFraction ? 2 : 0;
+
+  return formatter.format(n);
 };
 
 // eslint-disable-next-line
