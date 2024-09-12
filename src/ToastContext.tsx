@@ -11,8 +11,13 @@ export const useToast = (): ToastContextType => {
   const context = React.useContext(ToastContext);
 
   if (!context) {
-    // eslint-disable-next-line
-    throw new Error('useToast должен использоваться внутри ToastProvider');
+    console.error('useToast должен использоваться внутри ToastProvider');
+
+    return {
+      showToast: () => {
+        console.warn('Toast не может быть отображен, так как контекст отсутствует.');
+      },
+    };
   }
 
   return context;
