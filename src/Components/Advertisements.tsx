@@ -26,6 +26,7 @@ export type Filter = { name: keyof typeof filterMap, value: string } | null;
 
 const Advertisements = () => {
   const [advertisements, setAdvertisements] = React.useState<Advertisment[]>([]);
+  const [isLoading, setIsLoading] = React.useState(false);
   const [page, setPage] = React.useState(1);
   const [totalCount, setTotalCount] = React.useState(0);
   const [visible, setVisible] = React.useState<boolean>(false);
@@ -46,6 +47,8 @@ const Advertisements = () => {
       url.searchParams.set(filterMap[filter.name], filter.value);
     }
 
+    setIsLoading(true);
+
     axios
       .get(url.href)
       .then((response) => {
@@ -55,7 +58,8 @@ const Advertisements = () => {
       .catch((error) => {
         console.error(error);
         toast.current?.show({ severity: 'error', summary: 'Ошибка загрузки объявлений...', detail: error.message });
-      });
+      })
+      .finally(() => setIsLoading(false));
   }, [rows, page, filter]);
 
   const onPageChange = (event: PaginatorPageChangeEvent) => {
@@ -72,25 +76,22 @@ const Advertisements = () => {
   };
 
   return (
-    <div>
-      <h1>Объявления</h1>
+    <section className="advertisements">
+      <div className="container">
 
-      <div>
-        <Button
-          label="Добавить объявление"
-          icon="pi pi-plus"
-          severity="success"
-          style={{ marginBottom: 15, width: 240, fontSize: 14 }}
-          onClick={() => setVisible(!visible)}
-        />
-      </div>
+        <h1>Объявления</h1>
 
-      <AdvertisementsFilters
-        setFilter={setFilter}
-        resetPage={() => setPage(1)}
-      />
+        <div className="advertisements-controls">
+          <Button
+            label="Добавить объявление"
+            icon="pi pi-plus"
+            severity="success"
+            style={{ marginBottom: 15, width: 240, fontSize: 14 }}
+            onClick={() => setVisible(!visible)}
+          />
+          <AdvertisementsFilters setFilter={setFilter} resetPage={() => setPage(1)} />
+        </div>
 
-      {advertisements.length > 0 && (
         <Paginator
           first={first}
           rows={rows}
@@ -99,30 +100,36 @@ const Advertisements = () => {
           onPageChange={onPageChange}
           style={{ marginBottom: 10 }}
         />
-      )}
 
-      <div className="advertisements-wrapper">
         {!advertisements.length && <div>Нет объявлений для отображения...</div>}
+        {isLoading && (
+        <div className="loading">
+          <i className="pi pi-spin pi-spinner" />
+          Загрузка...
+        </div>
+        )}
 
-        {advertisements.map((item: Advertisment) => (
-          <Link to={`/advertisements/${item.id}`} key={item.id} className="adv-link">
-            <AdvertisementCard
-              id={item.id}
-              imageUrl={item.imageUrl}
-              likes={item.likes}
-              price={item.price}
-              name={item.name}
-              views={item.views}
-              createdAt={item.createdAt}
-            />
-          </Link>
-        ))}
+        <div className="advertisements-wrapper">
+          {advertisements.map((item: Advertisment) => (
+            <Link to={`/advertisements/${item.id}`} key={item.id} className="adv-link">
+              <AdvertisementCard
+                id={item.id}
+                imageUrl={item.imageUrl}
+                likes={item.likes}
+                price={item.price}
+                name={item.name}
+                views={item.views}
+                createdAt={item.createdAt}
+              />
+            </Link>
+          ))}
+        </div>
+
       </div>
 
       <AddItemDialog visible={visible} setVisible={setVisible} setData={handleAddItem} />
-
       <Toast ref={toast} />
-    </div>
+    </section>
   );
 };
 

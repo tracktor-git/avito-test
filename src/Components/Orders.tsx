@@ -181,35 +181,36 @@ const Orders = () => {
   };
 
   return (
-    <>
-      <Card style={{ margin: '10px auto' }} title="Список заказов">
-        {!orders.length && isLoading && <div>Загрузка...</div>}
+    <section className="orders">
+      <div className="container">
+        <Card style={{ margin: '10px auto' }} title="Список заказов">
+          {!orders.length && isLoading && <div>Загрузка...</div>}
 
-        <Dropdown
-          optionLabel="name"
-          placeholder="Выберите статус заказа"
-          style={{ minWidth: 320, marginBottom: 10 }}
-          value={selectedStatus}
-          onChange={handleFilterOrders}
-          options={statuses}
-          showClear
-        />
+          <Dropdown
+            optionLabel="name"
+            placeholder="Выберите статус заказа"
+            style={{ minWidth: 320, marginBottom: 10 }}
+            value={selectedStatus}
+            onChange={handleFilterOrders}
+            options={statuses}
+            showClear
+          />
 
-        <DataTable value={orders} stripedRows paginator rows={10} rowsPerPageOptions={[10, 50, 100]} emptyMessage="Нет заказов для отображения">
-          <Column field="id" header="Номер заказа" sortable />
-          <Column field="status" header="Статус" sortable body={statusBody} />
-          <Column field="createdAt" header="Дата создания" body={createdAtBody} sortable />
-          <Column field="finishedAt" header="Дата завершения" body={finishedAtBody} sortable />
-          <Column field="itemsCount" header="Количество товаров" body={itemsCountBody} sortable />
-          <Column field="deliveryWay" header="Доставка" sortable />
-          <Column field="total" header="Сумма заказа" body={totalBody} sortable />
-        </DataTable>
-      </Card>
-
+          <DataTable value={orders} stripedRows paginator rows={10} rowsPerPageOptions={[10, 50, 100]} emptyMessage="Нет заказов для отображения">
+            <Column field="id" header="Номер заказа" sortable />
+            <Column field="status" header="Статус" sortable body={statusBody} />
+            <Column field="createdAt" header="Дата создания" body={createdAtBody} sortable />
+            <Column field="finishedAt" header="Дата завершения" body={finishedAtBody} sortable />
+            <Column field="itemsCount" header="Количество товаров" body={itemsCountBody} sortable />
+            <Column field="deliveryWay" header="Доставка" sortable />
+            <Column field="total" header="Сумма заказа" body={totalBody} sortable />
+          </DataTable>
+        </Card>
+      </div>
       <ShowItemsDialog visible={visible} setVisible={setVisible} items={items} />
       <ConfirmDialog />
       <Toast ref={toast} />
-    </>
+    </section>
   );
 };
 

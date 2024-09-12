@@ -26,10 +26,6 @@ const Advertisement = () => {
       .catch((error) => console.error('Ошибка загрузки товара:', error));
   }, [id]);
 
-  if (!advertisement) {
-    return <p>Нет данных...</p>;
-  }
-
   const handleDeleteAdvertisement = () => {
     const deleteAdvertisement = () => axios
       .delete(`${routes.advertisements}/${id}`)
@@ -47,45 +43,63 @@ const Advertisement = () => {
     });
   };
 
-  return (
-    <>
-      <Card title={advertisement.name}>
-        <div className="advertisement-main-block">
-          <div className="advertisement-image">
-            <Image src={advertisement.imageUrl || noImage} indicatorIcon={<i className="pi pi-search" />} alt="Image" preview width="250" />
-          </div>
+  if (!advertisement) {
+    return (
+      <section className="advertisement">
+        <div className="container">
+          <p style={{ textAlign: 'center' }}>Нет данных...</p>
+        </div>
+      </section>
+    );
+  }
 
-          <div className="advertisement-info">
-            <ul>
-              <li>
-                <b>Дата создания: </b>
-                <span>{new Date(advertisement.createdAt).toLocaleString()}</span>
-              </li>
-              <li>
-                <b>Цена: </b>
-                <span>{formatNumber(advertisement.price)}</span>
-              </li>
-              <li>
-                <b>Просмотров: </b>
-                <span>{formatNumber(advertisement.views, 'number')}</span>
-              </li>
-              <li>
-                <b>Лайков: </b>
-                <span>{advertisement.likes}</span>
-              </li>
-            </ul>
-            <div className="advertisement-description">
-              <b>Описание:</b>
-              <div>{advertisement.description}</div>
+  return (
+    <section className="advertisement">
+      <div className="container">
+        <Card title={advertisement.name} className="advertisement-card">
+          <div className="advertisement-main-block">
+            <div className="advertisement-image">
+              <Image
+                alt="Image"
+                width="250"
+                indicatorIcon={<i className="pi pi-search" />}
+                src={advertisement.imageUrl || noImage}
+                preview
+              />
+            </div>
+
+            <div className="advertisement-info">
+              <ul>
+                <li>
+                  <b>Дата создания: </b>
+                  <span>{new Date(advertisement.createdAt).toLocaleString()}</span>
+                </li>
+                <li>
+                  <b>Цена: </b>
+                  <span>{formatNumber(advertisement.price)}</span>
+                </li>
+                <li>
+                  <b>Просмотров: </b>
+                  <span>{formatNumber(advertisement.views, 'number')}</span>
+                </li>
+                <li>
+                  <b>Лайков: </b>
+                  <span>{advertisement.likes}</span>
+                </li>
+              </ul>
+              <div className="advertisement-description">
+                <b>Описание:</b>
+                <div>{advertisement.description}</div>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="advertisement-controls">
-          <Button icon="pi pi-pen-to-square" label="Редактировать объявление" onClick={() => setVisible(!visible)} />
-          <Button icon="pi pi-trash" label="Удалить объявление" severity="danger" onClick={handleDeleteAdvertisement} />
-        </div>
-      </Card>
+          <div className="advertisement-controls">
+            <Button icon="pi pi-pen-to-square" label="Редактировать объявление" onClick={() => setVisible(!visible)} />
+            <Button icon="pi pi-trash" label="Удалить объявление" severity="danger" onClick={handleDeleteAdvertisement} />
+          </div>
+        </Card>
+      </div>
 
       <EditItemDialog
         data={advertisement}
@@ -93,8 +107,9 @@ const Advertisement = () => {
         setVisible={setVisible}
         setData={setAdvertisement}
       />
+
       <ConfirmDialog />
-    </>
+    </section>
   );
 };
 

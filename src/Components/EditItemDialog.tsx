@@ -58,8 +58,8 @@ const EditItemDialog = (props: IEditItemDialog) => {
     <>
       <Dialog
         header="Редактировать объявление"
+        className="item-dialog"
         visible={visible}
-        style={{ width: '50vw', maxWidth: 800 }}
         onHide={() => setVisible(false)}
       >
         <ItemForm

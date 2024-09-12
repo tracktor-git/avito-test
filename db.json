@@ -206,6 +206,36 @@
       "createdAt": "2024-09-10T12:24:19.514Z",
       "views": 0,
       "likes": 0
+    },
+    {
+      "name": "Туфли слегка б\\у",
+      "description": "Ещё долго послужат!",
+      "imageUrl": "https://avatars.mds.yandex.net/i?id=3079040050ccd68c2df698391a47315d_l-7760211-images-thumbs&n=13",
+      "price": 2000,
+      "createdAt": "2024-09-12T07:11:25.023Z",
+      "views": 0,
+      "likes": 0,
+      "id": "-Ry7iGz"
+    },
+    {
+      "name": "Шкаф с антресолями",
+      "description": "Ещё долго послужат!",
+      "imageUrl": "https://avatars.mds.yandex.net/i?id=490006fc6152be4c420fb707a6711e95_l-10310841-images-thumbs&n=13",
+      "price": 6700,
+      "createdAt": "2024-09-12T07:12:23.006Z",
+      "views": 0,
+      "likes": 0,
+      "id": "IJtwce5"
+    },
+    {
+      "name": "Системный администратор",
+      "description": "Ремонт и обслуживание ПК, чистка от пыли, установка Windows. Быстро и недорого!",
+      "imageUrl": "https://avatars.dzeninfra.ru/get-zen_doc/9712766/pub_649ee1e30801f04506736ef1_649ee1f8b837c97f31182e22/scale_1200",
+      "price": 1,
+      "createdAt": "2024-09-12T07:13:54.670Z",
+      "views": 0,
+      "likes": 0,
+      "id": "2jiojHa"
     }
   ],
   "orders": [

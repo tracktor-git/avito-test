@@ -66,7 +66,7 @@ const AddItemDialog = (props: IAddItemDialog) => {
     <>
       <Dialog
         header="Добавить объявление"
-        className="add-item-dialog"
+        className="item-dialog"
         visible={visible}
         onHide={() => setVisible(false)}
       >
