@@ -6,13 +6,13 @@ import { Card } from 'primereact/card';
 import { Image } from 'primereact/image';
 import { Toast } from 'primereact/toast';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
-import EditItemDialog from './EditItemDialog';
+import EditItemDialog from '../Dialogs/EditItemDialog';
 
-import { Advertisment } from '../types';
-import { formatNumber } from '../utils';
-import routes from '../routes';
+import { Advertisment } from '../../types';
+import { formatNumber } from '../../utils';
+import routes from '../../routes';
 
-import noImage from '../assets/no-image.jpg';
+import noImage from '../../assets/no-image.jpg';
 
 const Advertisement = () => {
   const { id } = useParams<{ id: string }>();

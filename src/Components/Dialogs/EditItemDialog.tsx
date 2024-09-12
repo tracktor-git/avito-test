@@ -2,11 +2,11 @@ import React from 'react';
 import { Dialog } from 'primereact/dialog';
 import { Toast } from 'primereact/toast';
 import axios from 'axios';
-import ItemForm from './ItemForm';
+import ItemForm from '../Parts/ItemForm';
 
-import routes from '../routes';
+import routes from '../../routes';
 
-import { Advertisment, ItemFormData } from '../types';
+import { Advertisment, ItemFormData } from '../../types';
 
 interface IEditItemDialog {
   visible: boolean;

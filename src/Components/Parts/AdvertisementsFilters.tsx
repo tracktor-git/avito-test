@@ -4,7 +4,7 @@ import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 
-import { Filter } from './Advertisements';
+import { Filter } from '../Pages/Advertisements';
 
 type OptionCodes = 'name' | 'price' | 'views' | 'likes';
 type FilterOption = { name: string, code: OptionCodes };

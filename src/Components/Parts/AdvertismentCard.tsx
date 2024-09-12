@@ -1,10 +1,10 @@
 import { Card } from 'primereact/card';
 import { Tag } from 'primereact/tag';
-import { Advertisment } from '../types';
+import { Advertisment } from '../../types';
 
-import { formatNumber } from '../utils';
+import { formatNumber } from '../../utils';
 
-import noImage from '../assets/no-image.jpg';
+import noImage from '../../assets/no-image.jpg';
 
 const AdvertisementCard = (props: Advertisment) => {
   const {

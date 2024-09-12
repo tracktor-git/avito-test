@@ -5,7 +5,7 @@ import { InputText } from 'primereact/inputtext';
 import { InputNumber } from 'primereact/inputnumber';
 import { InputTextarea } from 'primereact/inputtextarea';
 
-import { ItemFormData } from '../types';
+import { ItemFormData } from '../../types';
 
 type ItemValues = {
   data?: ItemFormData,

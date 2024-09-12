@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Advertisements from './Components/Advertisements';
-import Advertisement from './Components/Advertisement';
-import Orders from './Components/Orders';
-import Navigation from './Components/Navigation';
-import Footer from './Components/Footer';
+import Advertisements from './Components/Pages/Advertisements';
+import Advertisement from './Components/Pages/Advertisement';
+import Orders from './Components/Pages/Orders';
+import Navigation from './Components/Parts/Navigation';
+import Footer from './Components/Parts/Footer';
 
 const App = () => (
   <Router>

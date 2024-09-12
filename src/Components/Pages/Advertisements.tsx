@@ -6,14 +6,14 @@ import { Link } from 'react-router-dom';
 import { Paginator, PaginatorPageChangeEvent } from 'primereact/paginator';
 import { Toast } from 'primereact/toast';
 
-import routes from '../routes';
+import routes from '../../routes';
 
-import AdvertisementCard from './AdvertismentCard';
-import AddItemDialog from './AddItemDialog';
+import AdvertisementCard from '../Parts/AdvertismentCard';
+import AddItemDialog from '../Dialogs/AddItemDialog';
 
-import { Advertisment } from '../types';
+import { Advertisment } from '../../types';
 
-import AdvertisementsFilters from './AdvertisementsFilters';
+import AdvertisementsFilters from '../Parts/AdvertisementsFilters';
 
 const filterMap = {
   name: 'name_like',

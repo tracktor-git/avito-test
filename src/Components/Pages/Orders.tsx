@@ -4,27 +4,23 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
-import { Dialog } from 'primereact/dialog';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { Toast } from 'primereact/toast';
 
 import axios from 'axios';
 
-import routes from '../routes';
+import ShowItemsDialog from '../Dialogs/ShowItemDialog';
 
-import { Order, Advertisment, OrderStatus } from '../types';
+import routes from '../../routes';
 
-import { formatNumber } from '../utils';
+import { Order, OrderStatus } from '../../types';
 
-interface IShowItemDialog {
-  items: Advertisment[];
-  visible: boolean;
-  setVisible: (value: boolean) => void;
-}
+import { formatNumber } from '../../utils';
 
 type OrderStatusKey = keyof typeof OrderStatus;
+type SelectedStatusType = { name: string, code: number } | null;
 
 // Обратный маппинг для числовых значений статуса заказа
 const OrderStatusText: { [key in OrderStatusKey]: string } = {
@@ -35,41 +31,17 @@ const OrderStatusText: { [key in OrderStatusKey]: string } = {
   Received: 'Получен',
   Archived: 'Архивирован',
   Refund: 'Возврат',
-};
+} as const;
 
-type SelectedStatusType = { name: string, code: number } | null;
-
-const statuses: SelectedStatusType[] = [
-  { name: OrderStatusText.Created, code: OrderStatus.Created },
-  { name: OrderStatusText.Paid, code: OrderStatus.Paid },
-  { name: OrderStatusText.Transport, code: OrderStatus.Transport },
-  { name: OrderStatusText.DeliveredToThePoint, code: OrderStatus.DeliveredToThePoint },
-  { name: OrderStatusText.Received, code: OrderStatus.Received },
-  { name: OrderStatusText.Archived, code: OrderStatus.Archived },
-  { name: OrderStatusText.Refund, code: OrderStatus.Refund },
-];
-
-const getOrderStatusText = (status: number): string | undefined => {
-  const statusKey = (Object.keys(OrderStatus) as Array<OrderStatusKey>).find(
-    (key) => OrderStatus[key] === status,
-  );
-
-  return statusKey ? OrderStatusText[statusKey] : 'Неизвестный статус';
-};
-
-const ShowItemsDialog = (props: IShowItemDialog) => {
-  const { items, visible, setVisible } = props;
-
-  return (
-    <Dialog header="Объявления в товаре" visible={visible} onHide={() => setVisible(false)} style={{ minWidth: 320 }}>
-      {items.map((item: Advertisment) => (
-        <p key={item.id} className="item-link">
-          <Link to={`/advertisements/${item.id}`} target="_blank">{item.name}</Link>
-        </p>
-      ))}
-    </Dialog>
-  );
-};
+const statuses = {
+  0: OrderStatusText.Created,
+  1: OrderStatusText.Paid,
+  2: OrderStatusText.Transport,
+  3: OrderStatusText.DeliveredToThePoint,
+  4: OrderStatusText.Received,
+  5: OrderStatusText.Archived,
+  6: OrderStatusText.Refund,
+} as const;
 
 const Orders = () => {
   const [orders, setOrders] = React.useState<Order[]>([]);
@@ -184,7 +156,7 @@ const Orders = () => {
     </div>
   );
 
-  const statusBody = (data: Order) => getOrderStatusText(data.status);
+  const statusBody = (data: Order) => statuses[data.status];
 
   const handleFilterOrders = (event: DropdownChangeEvent) => {
     const { value } = event;
@@ -203,7 +175,7 @@ const Orders = () => {
             style={{ minWidth: 320, marginBottom: 10 }}
             value={selectedStatus}
             onChange={handleFilterOrders}
-            options={statuses}
+            options={Object.entries(statuses).map(([code, name]) => ({ code, name }))}
             showClear
           />
 
