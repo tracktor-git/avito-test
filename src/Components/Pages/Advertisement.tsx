@@ -4,10 +4,11 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import { Image } from 'primereact/image';
-import { Toast } from 'primereact/toast';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { ScrollPanel } from 'primereact/scrollpanel';
 import EditItemDialog from '../Dialogs/EditItemDialog';
+
+import { useToast } from '../../ToastContext';
 
 import { Advertisment } from '../../types';
 import { formatNumber } from '../../utils';
@@ -20,7 +21,7 @@ const Advertisement = () => {
   const [advertisement, setAdvertisement] = React.useState<Advertisment | null>(null);
   const [visible, setVisible] = React.useState(false);
 
-  const toast = React.useRef<Toast>(null);
+  const { showToast } = useToast();
 
   const navigate = useNavigate();
 
@@ -28,24 +29,26 @@ const Advertisement = () => {
     axios.get(`${routes.advertisements}/${id}`)
       .then((response) => setAdvertisement(response.data))
       .catch((error: Error) => {
-        console.error('Ошибка загрузки товара:', error);
+        const messageTitle = 'Ошибка загрузки объявления:';
+        console.error(messageTitle, error);
 
         if (error instanceof AxiosError && error.status === 404) {
-          toast.current?.show({ severity: 'error', summary: 'Ошибка загрузки объявления', detail: 'Объявление с таким номером не найдено!' });
+          showToast({ severity: 'error', summary: messageTitle, detail: 'Объявление с таким номером не найдено!' });
           return;
         }
 
-        toast.current?.show({ severity: 'error', summary: 'Ошибка загрузки объявления', detail: error.message });
+        showToast({ severity: 'error', summary: messageTitle, detail: error.message });
       });
-  }, [id]);
+  }, [id, showToast]);
 
   const handleDeleteAdvertisement = () => {
     const deleteAdvertisement = () => axios
       .delete(`${routes.advertisements}/${id}`)
       .then(() => navigate('/'))
       .catch((error: Error) => {
-        console.error('Ошибка удаления объявления:', error.message);
-        toast.current?.show({ severity: 'error', summary: 'Ошибка удаления объявления', detail: error.message });
+        const messageTitle = 'Ошибка удаления объявления:';
+        console.error(messageTitle, error.message);
+        showToast({ severity: 'error', summary: messageTitle, detail: error.message });
       });
 
     confirmDialog({
@@ -65,7 +68,6 @@ const Advertisement = () => {
         <div className="container">
           <p style={{ textAlign: 'center', padding: 10 }}>Нет данных...</p>
         </div>
-        <Toast ref={toast} />
       </section>
     );
   }
@@ -133,7 +135,6 @@ const Advertisement = () => {
       />
 
       <ConfirmDialog />
-      <Toast ref={toast} />
     </section>
   );
 };

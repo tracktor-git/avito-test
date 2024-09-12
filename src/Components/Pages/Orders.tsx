@@ -7,9 +7,10 @@ import { Button } from 'primereact/button';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
 import { useSearchParams } from 'react-router-dom';
-import { Toast } from 'primereact/toast';
 
 import axios from 'axios';
+
+import { useToast } from '../../ToastContext';
 
 import ShowItemsDialog from '../Dialogs/ShowItemDialog';
 
@@ -55,7 +56,7 @@ const Orders = () => {
 
   const itemID = searchParams.get('item');
 
-  const toast = React.useRef<Toast>(null);
+  const { showToast } = useToast();
 
   React.useEffect(() => {
     const url = selectedStatus ? `${routes.orders}?status=${selectedStatus.code}` : routes.orders;
@@ -76,10 +77,10 @@ const Orders = () => {
       .catch((error) => {
         console.error(error);
         const toastOptions = { summary: 'Ошибка загрузки заказов', detail: error.message };
-        toast.current?.show({ severity: 'error', ...toastOptions });
+        showToast({ severity: 'error', ...toastOptions });
       })
       .finally(() => setIsLoading(false));
-  }, [selectedStatus, itemID]);
+  }, [selectedStatus, itemID, showToast]);
 
   const handleShowItems = (id: string) => () => {
     setIsItemsLoading(true);
@@ -90,7 +91,7 @@ const Orders = () => {
       .catch((error) => {
         console.error(error);
         const toastOptions = { summary: 'Ошибка загрузки списка объявлений', detail: error.message };
-        toast.current?.show({ severity: 'error', ...toastOptions });
+        showToast({ severity: 'error', ...toastOptions });
       })
       .finally(() => setIsItemsLoading(false));
   };
@@ -109,7 +110,7 @@ const Orders = () => {
         .then(() => setOrders(newOrders))
         .catch((error) => {
           console.error(error);
-          toast.current?.show({ severity: 'error', summary: 'Не удалось завершить заказ', detail: error.message });
+          showToast({ severity: 'error', summary: 'Не удалось завершить заказ', detail: error.message });
         })
         .finally(() => setIsFinishingOrder(false));
     };
@@ -201,7 +202,6 @@ const Orders = () => {
       </div>
       <ShowItemsDialog visible={visible} setVisible={setVisible} items={items} />
       <ConfirmDialog />
-      <Toast ref={toast} />
     </section>
   );
 };

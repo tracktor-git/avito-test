@@ -1,11 +1,12 @@
 import React from 'react';
 import { Dialog } from 'primereact/dialog';
-import { Toast } from 'primereact/toast';
 import axios from 'axios';
 import ItemForm from '../Parts/ItemForm';
 
 import { Advertisment, ItemFormData } from '../../types';
 import routes from '../../routes';
+
+import { useToast } from '../../ToastContext';
 
 const initialData = {
   name: '',
@@ -40,7 +41,7 @@ const AddItemDialog = (props: IAddItemDialog) => {
   const [formData, setFormData] = React.useState<ItemFormData>(initialFormData);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
-  const toast = React.useRef<Toast>(null);
+  const { showToast } = useToast();
 
   const handleAddItem = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -54,7 +55,7 @@ const AddItemDialog = (props: IAddItemDialog) => {
       .then(({ data }) => setData(data))
       .catch((error) => {
         console.error(error);
-        toast.current?.show({ severity: 'error', summary: 'Ошибка добавления объявления', detail: error.message });
+        showToast({ severity: 'error', summary: 'Ошибка добавления объявления', detail: error.message });
       })
       .finally(() => {
         setVisible(false);
@@ -63,23 +64,20 @@ const AddItemDialog = (props: IAddItemDialog) => {
   };
 
   return (
-    <>
-      <Dialog
-        header="Добавить объявление"
-        className="item-dialog"
-        visible={visible}
-        onHide={() => setVisible(false)}
-      >
-        <ItemForm
-          submitLabel="Добавить"
-          onCancel={() => setVisible(false)}
-          isDisabled={isSubmitting}
-          onSubmit={handleAddItem}
-          setValues={setFormData}
-        />
-      </Dialog>
-      <Toast ref={toast} />
-    </>
+    <Dialog
+      header="Добавить объявление"
+      className="item-dialog"
+      visible={visible}
+      onHide={() => setVisible(false)}
+    >
+      <ItemForm
+        submitLabel="Добавить"
+        onCancel={() => setVisible(false)}
+        isDisabled={isSubmitting}
+        onSubmit={handleAddItem}
+        setValues={setFormData}
+      />
+    </Dialog>
   );
 };
 

@@ -1,8 +1,9 @@
 import React from 'react';
 import { Dialog } from 'primereact/dialog';
-import { Toast } from 'primereact/toast';
 import axios from 'axios';
 import ItemForm from '../Parts/ItemForm';
+
+import { useToast } from '../../ToastContext';
 
 import routes from '../../routes';
 
@@ -33,7 +34,7 @@ const EditItemDialog = (props: IEditItemDialog) => {
   const [formData, setFormData] = React.useState<ItemFormData>(editData);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
-  const toast = React.useRef<Toast>(null);
+  const { showToast } = useToast();
 
   const handleAddItem = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -46,7 +47,7 @@ const EditItemDialog = (props: IEditItemDialog) => {
       .then((response) => setData(response.data))
       .catch((error) => {
         console.error(error);
-        toast.current?.show({ severity: 'error', summary: 'Ошибка сохранения объявления', detail: error.message });
+        showToast({ severity: 'error', summary: 'Ошибка сохранения объявления', detail: error.message });
       })
       .finally(() => {
         setVisible(false);
@@ -55,24 +56,21 @@ const EditItemDialog = (props: IEditItemDialog) => {
   };
 
   return (
-    <>
-      <Dialog
-        header="Редактировать объявление"
-        className="item-dialog"
-        visible={visible}
-        onHide={() => setVisible(false)}
-      >
-        <ItemForm
-          submitLabel="Сохранить"
-          onCancel={() => setVisible(false)}
-          isDisabled={isSubmitting}
-          onSubmit={handleAddItem}
-          setValues={setFormData}
-          data={formData}
-        />
-      </Dialog>
-      <Toast ref={toast} />
-    </>
+    <Dialog
+      header="Редактировать объявление"
+      className="item-dialog"
+      visible={visible}
+      onHide={() => setVisible(false)}
+    >
+      <ItemForm
+        submitLabel="Сохранить"
+        onCancel={() => setVisible(false)}
+        isDisabled={isSubmitting}
+        onSubmit={handleAddItem}
+        setValues={setFormData}
+        data={formData}
+      />
+    </Dialog>
   );
 };
 

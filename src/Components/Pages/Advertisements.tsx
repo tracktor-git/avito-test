@@ -4,7 +4,8 @@ import axios from 'axios';
 import { Button } from 'primereact/button';
 import { Link } from 'react-router-dom';
 import { Paginator, PaginatorPageChangeEvent } from 'primereact/paginator';
-import { Toast } from 'primereact/toast';
+
+import { useToast } from '../../ToastContext';
 
 import routes from '../../routes';
 
@@ -34,7 +35,7 @@ const Advertisements = () => {
   const [rows, setRows] = React.useState<number>(10);
   const [filter, setFilter] = React.useState<Filter>(null);
 
-  const toast = React.useRef<Toast>(null);
+  const { showToast } = useToast();
 
   React.useEffect(() => {
     const url = new URL(routes.advertisements);
@@ -57,10 +58,10 @@ const Advertisements = () => {
       })
       .catch((error) => {
         console.error(error);
-        toast.current?.show({ severity: 'error', summary: 'Ошибка загрузки объявлений...', detail: error.message });
+        showToast({ severity: 'error', summary: 'Ошибка загрузки объявлений...', detail: error.message });
       })
       .finally(() => setIsLoading(false));
-  }, [rows, page, filter]);
+  }, [rows, page, filter, showToast]);
 
   const onPageChange = (event: PaginatorPageChangeEvent) => {
     setFirst(event.first);
@@ -128,7 +129,6 @@ const Advertisements = () => {
       </div>
 
       <AddItemDialog visible={visible} setVisible={setVisible} setData={handleAddItem} />
-      <Toast ref={toast} />
     </section>
   );
 };
