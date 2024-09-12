@@ -5,16 +5,15 @@ import { InputText } from 'primereact/inputtext';
 import { InputNumber } from 'primereact/inputnumber';
 import { InputTextarea } from 'primereact/inputtextarea';
 
-import { Advertisment as A } from '../types';
+import { ItemFormData } from '../types';
 
 type ItemValues = {
-  data?: Pick<A, 'name' | 'imageUrl' | 'price' | 'description'>,
+  data?: ItemFormData,
   submitLabel: string,
   isDisabled: boolean,
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void,
   onCancel: () => void,
-  // setValues: React.Dispatch<React.SetStateAction<Omit<Advertisment, 'id'> & { id?: string }>>,
-  setValues: (...args: any[]) => void, // Я хз как это типизировать...
+  setValues: React.Dispatch<React.SetStateAction<ItemFormData>>,
 };
 
 const ItemForm: React.FC<ItemValues> = (props) => {
@@ -35,7 +34,7 @@ const ItemForm: React.FC<ItemValues> = (props) => {
           name="name"
           placeholder="Например, Телевизор LG"
           value={data?.name}
-          onChange={(e) => setValues((prev: A) => ({ ...prev, name: e.target.value.trim() }))}
+          onChange={(e) => setValues((prev) => ({ ...prev, name: e.target.value.trim() }))}
           required
         />
       </label>
@@ -47,7 +46,7 @@ const ItemForm: React.FC<ItemValues> = (props) => {
           name="imageUrl"
           placeholder="http://example.com/image.jpg"
           value={data?.imageUrl}
-          onChange={(e) => setValues((prev: A) => ({ ...prev, imageUrl: e.target.value.trim() }))}
+          onChange={(e) => setValues((prev) => ({ ...prev, imageUrl: e.target.value.trim() }))}
         />
       </label>
 
@@ -58,7 +57,7 @@ const ItemForm: React.FC<ItemValues> = (props) => {
           placeholder="Цена товара"
           style={{ width: '100%' }}
           value={data?.price}
-          onChange={(event) => setValues((prev: A) => ({ ...prev, price: event.value || 0 }))}
+          onChange={(event) => setValues((prev) => ({ ...prev, price: event.value || 0 }))}
           required
         />
       </label>
@@ -69,7 +68,7 @@ const ItemForm: React.FC<ItemValues> = (props) => {
           name="description"
           value={data?.description}
           onChange={
-            (e) => setValues((prev: A) => ({ ...prev, description: e.target.value.trim() }))
+            (e) => setValues((prev) => ({ ...prev, description: e.target.value.trim() }))
           }
         />
       </label>

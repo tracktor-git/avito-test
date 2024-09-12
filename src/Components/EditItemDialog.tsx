@@ -6,7 +6,7 @@ import ItemForm from './ItemForm';
 
 import routes from '../routes';
 
-import { Advertisment } from '../types';
+import { Advertisment, ItemFormData } from '../types';
 
 interface IEditItemDialog {
   visible: boolean;
@@ -23,7 +23,14 @@ const EditItemDialog = (props: IEditItemDialog) => {
     data,
   } = props;
 
-  const [formData, setFormData] = React.useState<Advertisment>(data);
+  const editData: ItemFormData = {
+    name: data.name,
+    price: data.price,
+    description: data.description,
+    imageUrl: data.imageUrl,
+  };
+
+  const [formData, setFormData] = React.useState<ItemFormData>(editData);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   const toast = React.useRef<Toast>(null);
@@ -32,8 +39,10 @@ const EditItemDialog = (props: IEditItemDialog) => {
     event.preventDefault();
     setIsSubmitting(true);
 
+    const sendData = { ...formData, id: data.id };
+
     axios
-      .put(`${routes.advertisements}/${data.id}`, formData)
+      .patch(`${routes.advertisements}/${data.id}`, sendData)
       .then((response) => setData(response.data))
       .catch((error) => {
         console.error(error);

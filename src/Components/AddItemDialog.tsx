@@ -4,7 +4,7 @@ import { Toast } from 'primereact/toast';
 import axios from 'axios';
 import ItemForm from './ItemForm';
 
-import { Advertisment } from '../types';
+import { Advertisment, ItemFormData } from '../types';
 import routes from '../routes';
 
 const initialData = {
@@ -30,7 +30,14 @@ const AddItemDialog = (props: IAddItemDialog) => {
     setData,
   } = props;
 
-  const [formData, setFormData] = React.useState<Omit<Advertisment, 'id'>>(initialData);
+  const initialFormData = {
+    name: '',
+    price: 0,
+    description: '',
+    imageUrl: '',
+  };
+
+  const [formData, setFormData] = React.useState<ItemFormData>(initialFormData);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   const toast = React.useRef<Toast>(null);
@@ -39,7 +46,8 @@ const AddItemDialog = (props: IAddItemDialog) => {
     event.preventDefault();
     setIsSubmitting(true);
 
-    const newData = { ...initialData, ...formData, createdAt: new Date().toISOString() };
+    const createdAt = new Date().toISOString();
+    const newData = { ...initialData, ...formData, createdAt };
 
     axios
       .post(routes.advertisements, newData)

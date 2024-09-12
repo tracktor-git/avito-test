@@ -17,6 +17,8 @@ export type Advertisment = {
     imageUrl?: string;
 };
 
+export type ItemFormData = Pick<Advertisment, 'name' | 'price' | 'description' | 'imageUrl'>;
+
 export const OrderStatus = {
   Created: 0,
   Paid: 1,
