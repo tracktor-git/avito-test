@@ -7,7 +7,7 @@ import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { Toast } from 'primereact/toast';
 
 import axios from 'axios';
@@ -79,6 +79,9 @@ const Orders = () => {
   const [visible, setVisible] = React.useState(false);
   const [items, setItems] = React.useState([]);
   const [selectedStatus, setSelectedStatus] = React.useState<SelectedStatusType>(null);
+  const [searchParams] = useSearchParams();
+
+  const itemID = searchParams.get('item');
 
   const toast = React.useRef<Toast>(null);
 
@@ -89,14 +92,22 @@ const Orders = () => {
 
     axios
       .get(url)
-      .then((response) => setOrders(response.data))
+      .then((response) => {
+        if (itemID) {
+          const findOrders = (order: Order) => order.items.some((item) => item.id === itemID);
+          const filteredOrders = response.data.filter(findOrders);
+          setOrders(filteredOrders);
+          return;
+        }
+        setOrders(response.data);
+      })
       .catch((error) => {
         console.error(error);
         const toastOptions = { summary: 'Ошибка загрузки заказов', detail: error.message };
         toast.current?.show({ severity: 'error', ...toastOptions });
       })
       .finally(() => setIsLoading(false));
-  }, [selectedStatus]);
+  }, [selectedStatus, itemID]);
 
   const handleShowItems = (id: string) => () => {
     setIsItemsLoading(true);

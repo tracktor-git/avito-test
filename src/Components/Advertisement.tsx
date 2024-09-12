@@ -1,6 +1,6 @@
 import React from 'react';
 import axios, { AxiosError } from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import { Image } from 'primereact/image';
@@ -113,6 +113,13 @@ const Advertisement = () => {
           <div className="advertisement-controls">
             <Button icon="pi pi-pen-to-square" label="Редактировать объявление" onClick={() => setVisible(!visible)} />
             <Button icon="pi pi-trash" label="Удалить объявление" severity="danger" onClick={handleDeleteAdvertisement} />
+            <Link
+              className="p-button p-component p-button-success"
+              to={`/orders?item=${advertisement.id}`}
+              style={{ color: '#fff', fontWeight: '700' }}
+            >
+              К заказам
+            </Link>
           </div>
         </Card>
       </div>
