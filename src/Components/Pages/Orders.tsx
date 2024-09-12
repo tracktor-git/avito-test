@@ -159,10 +159,7 @@ const Orders = () => {
 
   const statusBody = (data: Order) => statuses[data.status];
 
-  const handleFilterOrders = (event: DropdownChangeEvent) => {
-    const { value } = event;
-    setSelectedStatus(value ?? null);
-  };
+  const handleFilterOrders = (event: DropdownChangeEvent) => setSelectedStatus(event.value ?? null);
 
   const emptyMessage = !orders.length && isLoading ? 'Загрузка...' : 'Нет заказов для отображения';
 
