@@ -101,7 +101,7 @@ const Advertisements = () => {
           style={{ marginBottom: 10 }}
         />
 
-        {!advertisements.length && <div>Нет объявлений для отображения...</div>}
+        {!advertisements.length && <div style={{ textAlign: 'center' }}>Нет объявлений для отображения...</div>}
         {isLoading && (
         <div className="loading">
           <i className="pi pi-spin pi-spinner" />

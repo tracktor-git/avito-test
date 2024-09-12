@@ -163,6 +163,8 @@ const Orders = () => {
     setSelectedStatus(value ?? null);
   };
 
+  const emptyMessage = !orders.length && isLoading ? 'Загрузка...' : 'Нет заказов для отображения';
+
   return (
     <section className="orders">
       <div className="container">
@@ -179,7 +181,14 @@ const Orders = () => {
             showClear
           />
 
-          <DataTable value={orders} stripedRows paginator rows={10} rowsPerPageOptions={[10, 50, 100]} emptyMessage="Нет заказов для отображения">
+          <DataTable
+            value={orders}
+            rows={10}
+            rowsPerPageOptions={[10, 50, 100]}
+            emptyMessage={emptyMessage}
+            stripedRows
+            paginator
+          >
             <Column field="id" header="Номер заказа" sortable />
             <Column field="status" header="Статус" sortable body={statusBody} />
             <Column field="createdAt" header="Дата создания" body={createdAtBody} sortable />
