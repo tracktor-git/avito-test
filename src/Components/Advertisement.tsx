@@ -1,9 +1,10 @@
 import React from 'react';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import { Image } from 'primereact/image';
+import { Toast } from 'primereact/toast';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import EditItemDialog from './EditItemDialog';
 
@@ -18,19 +19,33 @@ const Advertisement = () => {
   const [advertisement, setAdvertisement] = React.useState<Advertisment | null>(null);
   const [visible, setVisible] = React.useState(false);
 
+  const toast = React.useRef<Toast>(null);
+
   const navigate = useNavigate();
 
   React.useEffect(() => {
     axios.get(`${routes.advertisements}/${id}`)
       .then((response) => setAdvertisement(response.data))
-      .catch((error) => console.error('Ошибка загрузки товара:', error));
+      .catch((error: Error) => {
+        console.error('Ошибка загрузки товара:', error);
+
+        if (error instanceof AxiosError && error.status === 404) {
+          toast.current?.show({ severity: 'error', summary: 'Ошибка загрузки объявления', detail: 'Объявление с таким номером не найдено!' });
+          return;
+        }
+
+        toast.current?.show({ severity: 'error', summary: 'Ошибка загрузки объявления', detail: error.message });
+      });
   }, [id]);
 
   const handleDeleteAdvertisement = () => {
     const deleteAdvertisement = () => axios
       .delete(`${routes.advertisements}/${id}`)
       .then(() => navigate('/'))
-      .catch((error) => console.error('Ошибка удаления товара:', error));
+      .catch((error: Error) => {
+        console.error('Ошибка удаления объявления:', error.message);
+        toast.current?.show({ severity: 'error', summary: 'Ошибка удаления объявления', detail: error.message });
+      });
 
     confirmDialog({
       message: 'Вы хотите удалить это объявление?',
@@ -47,8 +62,9 @@ const Advertisement = () => {
     return (
       <section className="advertisement">
         <div className="container">
-          <p style={{ textAlign: 'center' }}>Нет данных...</p>
+          <p style={{ textAlign: 'center', padding: 10 }}>Нет данных...</p>
         </div>
+        <Toast ref={toast} />
       </section>
     );
   }
@@ -109,6 +125,7 @@ const Advertisement = () => {
       />
 
       <ConfirmDialog />
+      <Toast ref={toast} />
     </section>
   );
 };
