@@ -264,6 +264,13 @@ main {
 	padding: 0;
 }
 
+.advertisement-image img {
+	border: 1px solid #cfcfcf;
+	border-radius: 4px;
+	overflow: hidden;
+	padding: 4px;
+}
+
 .advertisement-info {
 	display: flex;
 	flex-direction: column;
@@ -278,10 +285,36 @@ main {
 	gap: 10px;
 }
 
+.advertisement-description div[role="scrollbar"] {
+	background: #cfcfcf;
+}
+
+@media (max-width: 740px) {
+	.advertisement-main-block {
+		flex-direction: column;
+	}
+
+	.advertisement-info {
+		max-width: 100%;
+	}
+
+	.advertisement-controls {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.advertisement-image img {
+		width: 100%;
+		max-width: 400px;
+	}
+}
+
 .item-link a:hover {
 	color: #5f2bc0;
 }
 
+
+/* ITEM DIALOG */
 .item-dialog-form {
 	display: flex;
     flex-direction: column;
@@ -303,9 +336,11 @@ main {
 	margin-right: 3px;
 }
 
+/* FOOTER */
 .footer {
 	border-top: 1px solid #ccc;
 	margin-top: 20px;
+	padding: 0 10px;
 	flex: 0 0 auto;
 }
 

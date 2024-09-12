@@ -6,6 +6,7 @@ import { Card } from 'primereact/card';
 import { Image } from 'primereact/image';
 import { Toast } from 'primereact/toast';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
+import { ScrollPanel } from 'primereact/scrollpanel';
 import EditItemDialog from '../Dialogs/EditItemDialog';
 
 import { Advertisment } from '../../types';
@@ -105,7 +106,7 @@ const Advertisement = () => {
               </ul>
               <div className="advertisement-description">
                 <b>Описание:</b>
-                <div>{advertisement.description}</div>
+                <ScrollPanel style={{ width: '100%', maxHeight: 200, margin: '10px 0' }}>{advertisement.description}</ScrollPanel>
               </div>
             </div>
           </div>
